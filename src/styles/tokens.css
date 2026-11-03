@@ -1,0 +1,71 @@
+/* Design Tokens - Locked per PRD Section 6 (Updated) */
+:root {
+  /* Colors (Light, default) */
+  --bg: #F2F2F0;
+  --surface: #EDEDF0;
+  --surface-2: #FFFFFF;
+  --text: #111111;
+  --muted: #6B6B70;
+  --border: #E2E2E5;
+  --accent: #5B3DF5; /* Strictly for status dot & micro focus */
+
+  /* Dot pattern texture color (<= 6% opacity) */
+  --dot-color: rgba(17, 17, 17, 0.05);
+
+  /* Typography scale: 12 / 14 / 16 / 20 / 28 / 40 / 64 / 112 */
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+  --font-size-20: 20px;
+  --font-size-28: 28px;
+  --font-size-40: 40px;
+  --font-size-64: 64px;
+  --font-size-112: 112px;
+
+  /* Radius: 12 / 24 / 48 / 999 */
+  --radius-12: 12px;
+  --radius-24: 24px;
+  --radius-48: 48px;
+  --radius-999: 9999px;
+
+  /* Spacing: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+  --space-128: 128px;
+
+  /* Motion: 200-400ms, consistent easing */
+  --motion-duration-fast: 200ms;
+  --motion-duration-normal: 300ms;
+  --motion-duration-slow: 400ms;
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark {
+  /* Colors (Dark - derived monochromatic inverted palette) */
+  --bg: #121212;
+  --surface: #1C1C1E;
+  --surface-2: #242426;
+  --text: #F2F2F0;
+  --muted: #9E9EA3;
+  --border: #2C2C30;
+  --accent: #7A62F7;
+
+  /* Dot pattern texture color for dark */
+  --dot-color: rgba(242, 242, 240, 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
