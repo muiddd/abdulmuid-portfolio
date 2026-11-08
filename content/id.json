@@ -6,6 +6,7 @@
   "nav": {
     "home": "Beranda",
     "about": "Tentang",
+    "skills": "Keahlian",
     "projects": "Proyek",
     "experience": "Pengalaman",
     "contact": "Kontak",
@@ -107,34 +108,39 @@
     ]
   },
   "experience": {
-    "label": "03 · Pengalaman",
+    "label": "Pengalaman",
     "title": "Pengalaman",
     "titlePart1": "Pengalaman &",
     "titlePart2": "Rekam Jejak",
-    "subtitle": "[PLACEHOLDER] Perjalanan kepemimpinan, kontribusi organisasi, dan keterlibatan proyek kolaboratif.",
+    "subtitle": "Perjalanan kepemimpinan mahasiswa, program komunitas, dan eksekusi proyek kolaboratif.",
     "viewAll": "Lihat Semua Pengalaman →",
     "categories": {
       "all": "Semua",
       "ambassador": "Ambassador",
       "organisasi": "Organisasi",
-      "kompetisi": "Kompetisi",
-      "proyek": "Proyek"
+      "volunteer": "Relawan"
     }
   },
   "certificates": {
-    "label": "04 · Sertifikasi",
+    "label": "Sertifikasi",
     "title": "Sertifikasi",
     "titlePart1": "Sertifikasi &",
-    "titlePart2": "Kredensial",
-    "subtitle": "[PLACEHOLDER] Bukti komitmen belajar berkelanjutan di bidang pengembangan web dan perancangan antarmuka.",
+    "titlePart2": "Penghargaan",
+    "subtitle": "Pencapaian kompetisi bridge tingkat nasional dan dedikasi kepanitiaan acara.",
     "viewAll": "Lihat Semua Sertifikat →",
     "viewCredential": "Lihat Kredensial",
+    "downloadPdf": "Unduh PDF",
     "closeLightbox": "Tutup preview sertifikat",
+    "preview": "Pratinjau sertifikat",
+    "close": "Tutup",
+    "verifiedCredential": "Kredensial terverifikasi",
     "categories": {
       "all": "Semua",
-      "development": "Development",
-      "design": "Design",
-      "other": "Lainnya"
+      "Kompetisi": "Kompetisi",
+      "Kepanitiaan": "Kepanitiaan",
+      "Development": "Development",
+      "Design": "Design",
+      "Lainnya": "Lainnya"
     }
   },
   "about": {
@@ -153,6 +159,7 @@
       "focusValue": "Fullstack Developer & UI/UX Designer"
     },
     "skillsTitle": "Keahlian & Alat yang Dikuasai",
+    "viewAllSkills": "Lihat semua keahlian →",
     "skills": {
       "groupFrontend": "Frontend",
       "groupBackend": "Backend & Database",
@@ -161,37 +168,21 @@
     "ctaMore": "Lihat selengkapnya",
     "ctaDownloadCv": "Unduh CV"
   },
-  "faq": {
-    "label": "06 · FAQ",
-    "titlePart1": "Pertanyaan",
-    "titlePart2": "yang Sering Diajukan",
-    "subtitle": "[PLACEHOLDER] Hal-hal penting seputar ketersediaan magang, cara kerja, dan preferensi teknologi.",
-    "items": [
-      {
-        "question": "Stack teknologi apa yang paling sering kamu pakai?",
-        "answer": "[PLACEHOLDER] Untuk frontend, saya terbiasa menggunakan React, Next.js, TypeScript, dan Tailwind CSS. Di sisi backend, saya memakai Node.js/Express bersama PostgreSQL atau MySQL, serta Figma untuk riset dan perancangan antarmuka."
-      },
-      {
-        "question": "Apakah kamu bersedia untuk magang onsite di Malang atau remote?",
-        "answer": "[PLACEHOLDER] Ya, saya berbasis di Malang dan sangat terbuka untuk magang secara onsite di area Malang, hybrid, maupun full-remote untuk perusahaan di luar kota."
-      },
-      {
-        "question": "Bagaimana caramu berkolaborasi dalam tim?",
-        "answer": "[PLACEHOLDER] Saya memprioritaskan komunikasi terbuka dan proaktif. Saya terbiasa menggunakan Git (branching, pull request, code review), platform manajemen tugas, dan mendokumentasikan keputusan teknis."
-      },
-      {
-        "question": "Bagaimana alurmu menerjemahkan desain ke kode nyata?",
-        "answer": "[PLACEHOLDER] Saya memulai dengan membedah desain Figma menjadi token desain (warna, tipografi, radius), menyusun hierarki komponen yang modular, lalu membangunnya dengan Tailwind CSS dan Next.js secara pixel-perfect dan responsif."
-      },
-      {
-        "question": "Bagaimana cara tercepat untuk menghubungimu?",
-        "answer": "[PLACEHOLDER] Anda dapat menghubungi saya melalui formulir kontak di bawah, mengirim email langsung, atau menyapa via LinkedIn. Saya biasanya merespons dalam waktu 24 jam pada hari kerja."
-      },
-      {
-        "question": "Jenis tugas atau proyek apa yang paling nyaman kamu kerjakan?",
-        "answer": "[PLACEHOLDER] Saya paling antusias mengerjakan pengembangan frontend web interaktif, slicing antarmuka UI/UX, integrasi API, serta membangun fitur end-to-end pada aplikasi web berskala MVP."
-      }
-    ]
+  "skills": {
+    "label": "Keahlian",
+    "titlePart1": "Keahlian Teknis &",
+    "titlePart2": "Alat Kerja",
+    "subtitle": "[PLACEHOLDER] Gambaran menyeluruh mengenai bahasa pemrograman, framework, alat desain, dan alur kerja pengembangan perangkat lunak yang saya gunakan.",
+    "subnavAria": "Navigasi kategori keahlian",
+    "viewAll": "Lihat semua keahlian →",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend & Database",
+      "design": "UI/UX & Desain",
+      "mobile": "Mobile",
+      "tools": "Tools & Data",
+      "soft": "Soft Skills"
+    }
   },
   "contact": {
     "label": "05 · Kontak",
@@ -207,8 +198,7 @@
     "socials": {
       "github": "https://github.com",
       "linkedin": "https://linkedin.com",
-      "instagram": "https://instagram.com",
-      "dribbble": "https://dribbble.com"
+      "instagram": "https://instagram.com"
     },
     "form": {
       "name": "Nama Anda",
@@ -224,11 +214,11 @@
     }
   },
   "footer": {
-    "tagline": "[PLACEHOLDER] Portofolio Fullstack Developer & UI/UX Designer untuk penempatan program magang.",
-    "quickLinks": "Navigasi",
-    "socials": "Tautan",
-    "status": "[PLACEHOLDER] Terbuka untuk tawaran magang",
-    "copyright": "© 2026 Abdul Muid. Seluruh hak cipta dilindungi.",
+    "status": "Terbuka untuk proyek & magang",
+    "pages": "Halaman",
+    "elsewhere": "Tautan",
+    "note": "Portofolio Abdul Muid, Fullstack Developer & UI/UX Designer. Dibangun dengan Next.js dan Tailwind CSS.",
+    "copyright": "© 2026 Abdul Muid",
     "backToTop": "Kembali ke atas"
   },
   "common": {
@@ -238,6 +228,9 @@
     "category": "Kategori",
     "period": "Periode",
     "status": "Status"
+  },
+  "cursor": {
+    "label": "Anda"
   }
 }
 

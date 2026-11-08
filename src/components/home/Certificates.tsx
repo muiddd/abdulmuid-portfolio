@@ -2,10 +2,14 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { PlaceholderImage } from "@/components/common/PlaceholderImage";
-import { certificates, CertificateItem, CertificateCategory } from "../../../content/certificates";
+import {
+  certificates,
+  CertificateItem,
+  CertificateCategory,
+} from "../../../content/certificates";
 
 interface CertificatesProps {
   limit?: number;
@@ -13,7 +17,7 @@ interface CertificatesProps {
 }
 
 export function Certificates({ limit = 6, showViewAll = true }: CertificatesProps) {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
 
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -22,13 +26,74 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
   // Accessible focus restoration ref
   const triggerRef = useRef<HTMLElement | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
-  const categories: { id: string; label: string }[] = [
+  const allCategories: { id: string; label: string }[] = [
     { id: "all", label: t("certificates.categories.all") },
-    { id: "Development", label: t("certificates.categories.development") },
-    { id: "Design", label: t("certificates.categories.design") },
-    { id: "Lainnya", label: t("certificates.categories.other") },
+    { id: "Kompetisi", label: t("certificates.categories.Kompetisi") },
+    { id: "Kepanitiaan", label: t("certificates.categories.Kepanitiaan") },
+    { id: "Development", label: t("certificates.categories.Development") },
+    { id: "Design", label: t("certificates.categories.Design") },
+    { id: "Lainnya", label: t("certificates.categories.Lainnya") },
   ];
+
+  // Sembunyikan tombol filter untuk kategori yang tidak punya item selama masih kosong
+  const visibleCategories = allCategories.filter((cat) => {
+    if (cat.id === "all") return true;
+    return certificates.some((item) => item.category === cat.id);
+  });
+
+  const getCategoryLabel = (category: CertificateCategory | string) => {
+    switch (category) {
+      case "Kompetisi":
+        return t("certificates.categories.Kompetisi");
+      case "Kepanitiaan":
+        return t("certificates.categories.Kepanitiaan");
+      case "Development":
+        return t("certificates.categories.Development");
+      case "Design":
+        return t("certificates.categories.Design");
+      case "Lainnya":
+        return t("certificates.categories.Lainnya");
+      default:
+        return category;
+    }
+  };
+
+  const getCertTitle = (cert: CertificateItem) => {
+    if (typeof cert.title === "object") {
+      return cert.title[lang] || cert.title.id;
+    }
+    return cert.title;
+  };
+
+  const getCertAlt = (cert: CertificateItem) => {
+    const titleStr = getCertTitle(cert);
+    if (cert.award) {
+      const awardStr = lang === "id" ? cert.award.id : cert.award.en;
+      return lang === "id"
+        ? `Sertifikat ${awardStr} ${titleStr}`
+        : `Certificate ${awardStr} ${titleStr}`;
+    }
+    return lang === "id" ? `Sertifikat ${titleStr}` : `Certificate ${titleStr}`;
+  };
+
+  // Badge di kartu & lightbox: award (PORSENI) bila ada, kalau tidak pakai role.
+  const getCertBadge = (cert: CertificateItem) => {
+    if (cert.award) return cert.award[lang] || cert.award.id;
+    if (cert.role) return cert.role[lang] || cert.role.id;
+    return null;
+  };
+
+  const getCertEventDate = (cert: CertificateItem) => {
+    if (cert.eventDate) return cert.eventDate[lang] || cert.eventDate.id;
+    return cert.date ?? null;
+  };
+
+  const getCertDescription = (cert: CertificateItem) => {
+    if (!cert.description) return null;
+    return cert.description[lang] || cert.description.id;
+  };
 
   const filteredItems = certificates.filter((item) => {
     if (activeCategory === "all") return true;
@@ -49,11 +114,39 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
     }
   };
 
-  // Keyboard Escape listener
+  // Keyboard Escape listener + focus trap while the lightbox is open
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && selectedCert) {
+      if (!selectedCert) return;
+
+      if (e.key === "Escape") {
         handleCloseModal();
+        return;
+      }
+
+      if (e.key !== "Tab") return;
+
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => el.offsetParent !== null);
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey && (active === first || !dialog.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || !dialog.contains(active))) {
+        e.preventDefault();
+        first.focus();
       }
     };
 
@@ -71,7 +164,7 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
   }, [selectedCert]);
 
   return (
-    <section id="certificates" className="relative w-full py-16 md:py-24 border-t border-border/70">
+    <section id="certificates" className="relative w-full py-16 md:py-24 border-t border-border/70 scroll-mt-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -86,90 +179,112 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
             </p>
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 self-start md:self-end">
-            {categories.map((cat) => {
-              const isActive = activeCategory === cat.id;
+          {/* Category Filter Pills (Hanya tampilkan jika ada lebih dari 1 kategori yang punya item) */}
+          {visibleCategories.length > 1 && (
+            <div className="flex flex-wrap items-center gap-2 self-start md:self-end">
+              {visibleCategories.map((cat) => {
+                const isActive = activeCategory === cat.id;
 
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`px-3.5 py-1.5 rounded-12 text-14 font-mono transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text select-none ${
-                    isActive
-                      ? "bg-text text-bg shadow-sm"
-                      : "bg-surface-2 border border-border text-muted hover:text-text hover:bg-surface"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`px-3.5 py-1.5 rounded-12 text-14 font-mono transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text select-none ${
+                      isActive
+                        ? "bg-text text-bg shadow-sm"
+                        : "bg-surface-2 border border-border text-muted hover:text-text hover:bg-surface"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        {/* Certificates Grid: 1 col mobile, 2 cols tablet, 3 cols desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {displayItems.map((cert) => (
-            <div
-              key={cert.id}
-              role="button"
-              tabIndex={0}
-              onClick={(e) => handleOpenModal(cert, e)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handleOpenModal(cert, e);
-                }
-              }}
-              className="group bg-surface rounded-24 border border-border p-4 sm:p-5 shadow-none hover:border-text/30 transition-all duration-200 cursor-pointer flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
-              aria-label={`Buka pratinjau ${cert.title}`}
-            >
-              <div>
-                {/* Thumbnail Preview with PlaceholderImage */}
-                <div className="overflow-hidden rounded-16 border border-border/80 mb-4 bg-surface-2">
-                  <PlaceholderImage
-                    src={cert.image}
-                    alt={cert.title}
-                    aspectRatio="video"
-                    category={cert.category}
-                    label={cert.title}
-                    className="w-full group-hover:scale-[1.02] transition-transform duration-300"
-                  />
+        {/* Certificates Grid: Rata kiri dua kolom di desktop, satu kolom di mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {displayItems.map((cert) => {
+            const certTitle = getCertTitle(cert);
+            const certAlt = getCertAlt(cert);
+            const badge = getCertBadge(cert);
+            const eventDate = getCertEventDate(cert);
+
+            return (
+              <div
+                key={cert.id}
+                role="button"
+                tabIndex={0}
+                onClick={(e) => handleOpenModal(cert, e)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleOpenModal(cert, e);
+                  }
+                }}
+                className="group bg-surface rounded-24 border border-border p-4 sm:p-5 shadow-none hover:border-text/30 transition-all duration-200 cursor-pointer flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+                aria-label={`Buka pratinjau ${certTitle}`}
+              >
+                <div>
+                  {/* Thumbnail Preview with next/image in --surface-2 container (object-contain, jangan dipotong) */}
+                  <div className="relative overflow-hidden rounded-16 border border-border/80 mb-4 bg-surface-2 p-3 sm:p-4 flex items-center justify-center aspect-[1600/1131]">
+                    <Image
+                      src={cert.image}
+                      alt={certAlt}
+                      width={1600}
+                      height={1131}
+                      loading="lazy"
+                      className="w-full h-auto max-h-full object-contain rounded-10 group-hover:scale-[1.02] transition-transform duration-300"
+                    />
+                  </div>
+
+                  {/* Meta details: Badge award & category */}
+                  <div className="flex items-center justify-between text-12 font-mono text-muted mb-2.5">
+                    <div className="flex items-center gap-2">
+                      {/* Badge: award bila ada, jika tidak role */}
+                      {badge && (
+                        <span className="px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/25 text-text font-medium select-none">
+                          {badge}
+                        </span>
+                      )}
+                      {/* Category Badge */}
+                      <span className="px-2.5 py-0.5 rounded-full bg-surface-2 border border-border/80 select-none">
+                        {getCategoryLabel(cert.category)}
+                      </span>
+                    </div>
+
+                    {/* Sembunyikan tanggal jika kosong */}
+                    {eventDate && <span>{eventDate}</span>}
+                  </div>
+
+                  {/* Certificate Title */}
+                  <h3 className="font-sans font-bold text-16 text-text leading-snug group-hover:text-muted transition-colors mb-1.5">
+                    {certTitle}
+                  </h3>
+
+                  {/* Sembunyikan issuer jika kosong */}
+                  {cert.issuer && (
+                    <p className="font-mono text-12 text-muted line-clamp-1">
+                      {cert.issuer}
+                    </p>
+                  )}
                 </div>
 
-                {/* Meta details */}
-                <div className="flex items-center justify-between text-12 font-mono text-muted mb-2">
-                  <span className="px-2 py-0.5 rounded-6 bg-surface-2 border border-border/80">
-                    {cert.category}
-                  </span>
-                  <span>{cert.date}</span>
+                {/* Action Hint */}
+                <div className="pt-4 mt-3 border-t border-border/60 flex items-center justify-between text-12 font-medium text-text">
+                  <span className="group-hover:underline">{t("certificates.preview")}</span>
+                  <span className="text-14 font-mono group-hover:translate-x-0.5 transition-transform">↗</span>
                 </div>
-
-                {/* Certificate Title */}
-                <h3 className="font-sans font-bold text-16 text-text leading-snug group-hover:text-muted transition-colors mb-1.5">
-                  {cert.title}
-                </h3>
-
-                {/* Issuer */}
-                <p className="font-mono text-12 text-muted line-clamp-1">
-                  {cert.issuer}
-                </p>
               </div>
-
-              {/* Action Hint */}
-              <div className="pt-4 mt-2 border-t border-border/60 flex items-center justify-between text-12 font-medium text-text">
-                <span className="group-hover:underline">Pratinjau sertifikat</span>
-                <span className="text-14 font-mono group-hover:translate-x-0.5 transition-transform">↗</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* View All Button */}
         {showViewAll && (
-          <div className="mt-12 text-center">
+          <div className="pt-10 sm:pt-14 flex justify-center">
             <Link
               href="/experience"
               className="inline-flex items-center justify-center h-11 px-6 rounded-12 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
@@ -201,24 +316,41 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
 
             {/* Modal Dialog Card */}
             <motion.div
+              ref={dialogRef}
               initial={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: shouldReduceMotion ? 1 : 0, scale: shouldReduceMotion ? 1 : 0.95 }}
               transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-              className="relative w-full max-w-2xl bg-surface-2 rounded-24 border border-border p-6 sm:p-8 shadow-2xl z-10 space-y-5"
+              className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto bg-surface-2 rounded-24 border border-border p-5 sm:p-7 shadow-2xl z-10 space-y-4"
             >
               {/* Modal Header */}
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <span className="font-mono text-12 text-muted uppercase tracking-wider px-2 py-0.5 rounded-6 bg-surface border border-border">
-                    {selectedCert.category}
-                  </span>
-                  <h3 id="modal-cert-title" className="font-sans font-bold text-20 text-text mt-2">
-                    {selectedCert.title}
+                  <div className="flex items-center gap-2">
+                    {getCertBadge(selectedCert) && (
+                      <span className="font-mono text-12 text-text px-2.5 py-0.5 rounded-full bg-accent/15 border border-accent/30 font-semibold select-none">
+                        {getCertBadge(selectedCert)}
+                      </span>
+                    )}
+                    <span className="font-mono text-12 text-muted px-2.5 py-0.5 rounded-full bg-surface border border-border select-none">
+                      {getCategoryLabel(selectedCert.category)}
+                    </span>
+                  </div>
+                  <h3 id="modal-cert-title" className="font-sans font-bold text-18 sm:text-20 text-text mt-2 leading-snug">
+                    {getCertTitle(selectedCert)}
                   </h3>
-                  <p className="font-mono text-14 text-muted">
-                    {selectedCert.issuer} · {selectedCert.date}
-                  </p>
+                  {(selectedCert.issuer || getCertEventDate(selectedCert)) && (
+                    <p className="font-mono text-13 text-muted mt-1">
+                      {[selectedCert.issuer, getCertEventDate(selectedCert)]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
+                  )}
+                  {getCertDescription(selectedCert) && (
+                    <p className="text-14 text-muted leading-relaxed mt-2">
+                      {getCertDescription(selectedCert)}
+                    </p>
+                  )}
                 </div>
 
                 {/* Close Button */}
@@ -227,46 +359,45 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                   type="button"
                   onClick={handleCloseModal}
                   aria-label={t("certificates.closeLightbox")}
-                  className="w-8 h-8 rounded-10 bg-surface border border-border flex items-center justify-center text-text hover:bg-border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+                  className="w-8 h-8 rounded-10 bg-surface border border-border flex items-center justify-center text-text hover:bg-border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shrink-0"
                 >
                   ✕
                 </button>
               </div>
 
-              {/* Large Certificate Preview */}
-              <div className="overflow-hidden rounded-16 border border-border bg-surface">
-                <PlaceholderImage
+              {/* Large Certificate Preview: object-contain, tidak melebihi tinggi layar */}
+              <div className="overflow-hidden rounded-16 border border-border bg-surface p-2 sm:p-4 flex items-center justify-center">
+                <Image
                   src={selectedCert.image}
-                  alt={selectedCert.title}
-                  aspectRatio="video"
-                  category={selectedCert.category}
-                  label={selectedCert.title}
-                  className="w-full"
+                  alt={getCertAlt(selectedCert)}
+                  width={1600}
+                  height={1131}
+                  priority
+                  className="w-full h-auto max-h-[62vh] object-contain rounded-10"
                 />
               </div>
 
-              {/* Footer Links in Modal */}
+              {/* Footer Actions: Unduh PDF & Tutup */}
               <div className="flex items-center justify-between pt-2">
-                {selectedCert.credentialUrl ? (
+                {selectedCert.pdf ? (
                   <a
-                    href={selectedCert.credentialUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-14 font-medium text-text hover:underline"
+                    href={selectedCert.pdf}
+                    download
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-10 bg-surface border border-border text-text text-14 font-medium hover:bg-surface-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
                   >
-                    <span>{t("certificates.viewCredential")}</span>
-                    <span>↗</span>
+                    <span>↓</span>
+                    <span>{t("certificates.downloadPdf")}</span>
                   </a>
                 ) : (
-                  <span className="text-12 font-mono text-muted">Kredensial terverifikasi</span>
+                  <span className="text-12 font-mono text-muted">{t("certificates.verifiedCredential")}</span>
                 )}
 
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-4 py-2 rounded-10 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity"
+                  className="px-5 py-2 rounded-10 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
                 >
-                  Tutup
+                  {t("certificates.close")}
                 </button>
               </div>
             </motion.div>
@@ -276,4 +407,3 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
     </section>
   );
 }
-

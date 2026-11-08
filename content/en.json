@@ -6,6 +6,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
+    "skills": "Skills",
     "projects": "Projects",
     "experience": "Experience",
     "contact": "Contact",
@@ -107,34 +108,39 @@
     ]
   },
   "experience": {
-    "label": "03 · Experience",
+    "label": "Experience",
     "title": "Experience",
     "titlePart1": "Experience &",
     "titlePart2": "Leadership",
-    "subtitle": "[PLACEHOLDER] Track record across student leadership, community programs, and collaborative project execution.",
+    "subtitle": "Track record across student leadership, community programs, and collaborative project execution.",
     "viewAll": "View All Experience →",
     "categories": {
       "all": "All",
       "ambassador": "Ambassador",
       "organisasi": "Organization",
-      "kompetisi": "Competition",
-      "proyek": "Project"
+      "volunteer": "Volunteer"
     }
   },
   "certificates": {
-    "label": "04 · Certificates",
+    "label": "Certificates",
     "title": "Certificates",
     "titlePart1": "Certificates &",
-    "titlePart2": "Credentials",
-    "subtitle": "[PLACEHOLDER] Demonstrated commitment to continuous learning across software engineering and product design.",
+    "titlePart2": "Awards",
+    "subtitle": "National-level bridge competition achievements and event committee dedication.",
     "viewAll": "View All Certificates →",
     "viewCredential": "View Credential",
+    "downloadPdf": "Download PDF",
     "closeLightbox": "Close certificate preview",
+    "preview": "Preview certificate",
+    "close": "Close",
+    "verifiedCredential": "Verified credential",
     "categories": {
       "all": "All",
-      "development": "Development",
-      "design": "Design",
-      "other": "Other"
+      "Kompetisi": "Competition",
+      "Kepanitiaan": "Committee",
+      "Development": "Development",
+      "Design": "Design",
+      "Lainnya": "Other"
     }
   },
   "about": {
@@ -153,6 +159,7 @@
       "focusValue": "Fullstack Developer & UI/UX Designer"
     },
     "skillsTitle": "Skills & Technologies",
+    "viewAllSkills": "See all skills →",
     "skills": {
       "groupFrontend": "Frontend",
       "groupBackend": "Backend & Database",
@@ -160,6 +167,22 @@
     },
     "ctaMore": "Read more",
     "ctaDownloadCv": "Download CV"
+  },
+  "skills": {
+    "label": "Skills",
+    "titlePart1": "Technical Skills &",
+    "titlePart2": "Tooling",
+    "subtitle": "[PLACEHOLDER] A comprehensive overview of programming languages, frameworks, design systems, and developer tooling I work with.",
+    "subnavAria": "Skills category navigation",
+    "viewAll": "See all skills →",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend & Database",
+      "design": "UI/UX & Design",
+      "mobile": "Mobile",
+      "tools": "Tools & Data",
+      "soft": "Soft Skills"
+    }
   },
   "faq": {
     "label": "06 · FAQ",
@@ -224,11 +247,11 @@
     }
   },
   "footer": {
-    "tagline": "[PLACEHOLDER] Fullstack Developer & UI/UX Designer portfolio for internship opportunities.",
-    "quickLinks": "Navigation",
-    "socials": "Links",
-    "status": "[PLACEHOLDER] Open for internship offers",
-    "copyright": "© 2026 Abdul Muid. All rights reserved.",
+    "status": "Open for projects & internships",
+    "pages": "Pages",
+    "elsewhere": "Elsewhere",
+    "note": "Abdul Muid's portfolio — Fullstack Developer & UI/UX Designer. Built with Next.js and Tailwind CSS.",
+    "copyright": "© 2026 Abdul Muid",
     "backToTop": "Back to top"
   },
   "common": {
@@ -238,6 +261,9 @@
     "category": "Category",
     "period": "Period",
     "status": "Status"
+  },
+  "cursor": {
+    "label": "You"
   }
 }
 
