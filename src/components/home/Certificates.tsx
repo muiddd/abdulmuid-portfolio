@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { LuArrowDown, LuArrowRight, LuArrowUpRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import {
   certificates,
@@ -204,11 +205,10 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
           )}
         </div>
 
-        {/* Certificates Grid: Rata kiri dua kolom di desktop, satu kolom di mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {/* Certificates List: satu baris per sertifikat, pratinjau gambar hanya di lightbox */}
+        <div className="flex flex-col gap-3 sm:gap-4">
           {displayItems.map((cert) => {
             const certTitle = getCertTitle(cert);
-            const certAlt = getCertAlt(cert);
             const badge = getCertBadge(cert);
             const eventDate = getCertEventDate(cert);
 
@@ -224,43 +224,29 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                     handleOpenModal(cert, e);
                   }
                 }}
-                className="group bg-surface rounded-24 border border-border p-4 sm:p-5 shadow-none hover:border-text/30 transition-all duration-200 cursor-pointer flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+                className="group bg-surface rounded-24 border border-border p-5 sm:p-6 shadow-none hover:border-text/30 transition-colors duration-200 cursor-pointer flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
                 aria-label={`Buka pratinjau ${certTitle}`}
               >
-                <div>
-                  {/* Thumbnail Preview with next/image in --surface-2 container (object-contain, jangan dipotong) */}
-                  <div className="relative overflow-hidden rounded-16 border border-border/80 mb-4 bg-surface-2 p-3 sm:p-4 flex items-center justify-center aspect-[1600/1131]">
-                    <Image
-                      src={cert.image}
-                      alt={certAlt}
-                      width={1600}
-                      height={1131}
-                      loading="lazy"
-                      className="w-full h-auto max-h-full object-contain rounded-10 group-hover:scale-[1.02] transition-transform duration-300"
-                    />
-                  </div>
-
-                  {/* Meta details: Badge award & category */}
-                  <div className="flex items-center justify-between text-12 font-mono text-muted mb-2.5">
-                    <div className="flex items-center gap-2">
-                      {/* Badge: award bila ada, jika tidak role */}
-                      {badge && (
-                        <span className="px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/25 text-text font-medium select-none">
-                          {badge}
-                        </span>
-                      )}
-                      {/* Category Badge */}
-                      <span className="px-2.5 py-0.5 rounded-full bg-surface-2 border border-border/80 select-none">
-                        {getCategoryLabel(cert.category)}
+                {/* Details */}
+                <div className="flex-1 min-w-0">
+                  {/* Meta details: Badge award/role, category & date */}
+                  <div className="flex flex-wrap items-center gap-2 text-12 font-mono text-muted mb-2">
+                    {/* Badge: award bila ada, jika tidak role */}
+                    {badge && (
+                      <span className="px-2.5 py-0.5 rounded-full bg-accent/10 border border-accent/25 text-text font-medium select-none">
+                        {badge}
                       </span>
-                    </div>
-
+                    )}
+                    {/* Category Badge */}
+                    <span className="px-2.5 py-0.5 rounded-full bg-surface-2 border border-border/80 select-none">
+                      {getCategoryLabel(cert.category)}
+                    </span>
                     {/* Sembunyikan tanggal jika kosong */}
                     {eventDate && <span>{eventDate}</span>}
                   </div>
 
                   {/* Certificate Title */}
-                  <h3 className="font-sans font-bold text-16 text-text leading-snug group-hover:text-muted transition-colors mb-1.5">
+                  <h3 className="font-sans font-bold text-16 sm:text-20 text-text leading-snug group-hover:text-muted transition-colors mb-1.5">
                     {certTitle}
                   </h3>
 
@@ -273,9 +259,12 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                 </div>
 
                 {/* Action Hint */}
-                <div className="pt-4 mt-3 border-t border-border/60 flex items-center justify-between text-12 font-medium text-text">
+                <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-border/60 sm:border-l sm:pl-5 text-12 font-medium text-text">
                   <span className="group-hover:underline">{t("certificates.preview")}</span>
-                  <span className="text-14 font-mono group-hover:translate-x-0.5 transition-transform">↗</span>
+                  <LuArrowUpRight
+                    aria-hidden="true"
+                    className="text-14 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
                 </div>
               </div>
             );
@@ -287,9 +276,13 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
           <div className="pt-10 sm:pt-14 flex justify-center">
             <Link
               href="/experience"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-12 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
+              className="group inline-flex items-center justify-center gap-2 h-11 px-6 rounded-12 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
             >
               {t("certificates.viewAll")}
+              <LuArrowRight
+                aria-hidden="true"
+                className="text-16 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
             </Link>
           </div>
         )}
@@ -336,11 +329,11 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                       {getCategoryLabel(selectedCert.category)}
                     </span>
                   </div>
-                  <h3 id="modal-cert-title" className="font-sans font-bold text-18 sm:text-20 text-text mt-2 leading-snug">
+                  <h3 id="modal-cert-title" className="font-sans font-bold text-20 text-text mt-2 leading-snug">
                     {getCertTitle(selectedCert)}
                   </h3>
                   {(selectedCert.issuer || getCertEventDate(selectedCert)) && (
-                    <p className="font-mono text-13 text-muted mt-1">
+                    <p className="font-mono text-12 text-muted mt-1">
                       {[selectedCert.issuer, getCertEventDate(selectedCert)]
                         .filter(Boolean)
                         .join(" · ")}
@@ -359,7 +352,7 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                   type="button"
                   onClick={handleCloseModal}
                   aria-label={t("certificates.closeLightbox")}
-                  className="w-8 h-8 rounded-10 bg-surface border border-border flex items-center justify-center text-text hover:bg-border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shrink-0"
+                  className="w-8 h-8 rounded-12 bg-surface border border-border flex items-center justify-center text-text hover:bg-border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shrink-0"
                 >
                   ✕
                 </button>
@@ -373,7 +366,7 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                   width={1600}
                   height={1131}
                   priority
-                  className="w-full h-auto max-h-[62vh] object-contain rounded-10"
+                  className="w-full h-auto max-h-[62vh] object-contain rounded-12"
                 />
               </div>
 
@@ -383,9 +376,9 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                   <a
                     href={selectedCert.pdf}
                     download
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-10 bg-surface border border-border text-text text-14 font-medium hover:bg-surface-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-12 bg-surface border border-border text-text text-14 font-medium hover:bg-surface-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
                   >
-                    <span>↓</span>
+                    <LuArrowDown aria-hidden="true" className="text-16" />
                     <span>{t("certificates.downloadPdf")}</span>
                   </a>
                 ) : (
@@ -395,7 +388,7 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-5 py-2 rounded-10 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+                  className="px-5 py-2 rounded-12 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
                 >
                   {t("certificates.close")}
                 </button>

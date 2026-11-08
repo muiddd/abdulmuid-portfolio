@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface PlaceholderImageProps {
   src?: string;
@@ -20,6 +20,24 @@ export function PlaceholderImage({
   className = "",
 }: PlaceholderImageProps) {
   const [hasError, setHasError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // Images rendered during SSR can fail before React hydrates, in which case
+  // the onError handler never fires. Detect that case once mounted so the
+  // graceful placeholder is shown instead of a broken image.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+
+    if (img.complete) {
+      if (img.naturalWidth === 0) {
+        setHasError(true);
+      } else {
+        setIsLoaded(true);
+      }
+    }
+  }, [src]);
 
   const aspectClass = {
     video: "aspect-[16/9]",
@@ -33,13 +51,18 @@ export function PlaceholderImage({
       <div
         className={`relative w-full ${aspectClass} overflow-hidden rounded-24 border border-border bg-surface ${className}`}
       >
-        {/* Real image rendered with grayscale filter per PRD Section 6 */}
+        {/* Real image rendered in full natural color. Hidden until it has
+            successfully loaded so a missing asset never flashes a broken icon. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          ref={imgRef}
           src={src}
           alt={alt || label}
           onError={() => setHasError(true)}
-          className="w-full h-full object-cover grayscale contrast-[1.04] hover:grayscale-0 transition-all duration-300"
+          onLoad={() => setIsLoaded(true)}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
           loading="lazy"
         />
         {category && (
@@ -88,7 +111,7 @@ export function PlaceholderImage({
           <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
         </svg>
 
-        {category && (
+        {category && category !== label && (
           <span className="font-mono text-12 text-muted px-2.5 py-0.5 rounded-999 bg-surface-2 border border-border">
             {category}
           </span>

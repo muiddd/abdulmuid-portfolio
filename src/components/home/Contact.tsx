@@ -2,65 +2,61 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { SiGithub, SiInstagram, SiDribbble } from "react-icons/si";
-import { LuLinkedin } from "react-icons/lu";
+import { LuMail, LuPhone, LuCopy, LuCheck, LuLinkedin } from "react-icons/lu";
+import { SiGithub, SiInstagram } from "react-icons/si";
+import { HiHeart } from "react-icons/hi2";
 
 export function Contact() {
   const { t } = useLanguage();
-
   const [copied, setCopied] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "", honeypot: "" });
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const emailToCopy = "abdulmuid.dev@gmail.com";
+  const email = t("contact.emailAddress") || "muidabdulmuid99@gmail.com";
+  const phone = t("contact.phoneNumber") || "+62 857 3001 3648";
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(emailToCopy);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2200);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus("error");
-      setErrorMessage("Semua kolom wajib diisi.");
-      return;
-    }
-
-    setStatus("sending");
-    setErrorMessage("");
-
+  const handleCopyEmail = async () => {
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.success) {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "", honeypot: "" });
-      } else {
-        setStatus("error");
-        setErrorMessage(data.error || t("contact.form.error"));
-      }
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
     } catch {
-      setStatus("error");
-      setErrorMessage(t("contact.form.error"));
+      // Fallback if clipboard API is blocked
+      const textArea = document.createElement("textarea");
+      textArea.value = email;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
     }
   };
+
+  const socials = [
+    {
+      name: "Instagram",
+      href: t("contact.socials.instagram") || "https://www.instagram.com/muiddd__/",
+      icon: SiInstagram,
+    },
+    {
+      name: "GitHub",
+      href: t("contact.socials.github") || "https://github.com/muiddd",
+      icon: SiGithub,
+    },
+    {
+      name: "LinkedIn",
+      href: t("contact.socials.linkedin") || "https://www.linkedin.com/in/abdul-muid-67531b335",
+      icon: LuLinkedin,
+    },
+  ];
+
+  const cleanPhone = phone.replace(/[^0-9]/g, "");
 
   return (
-    <section id="contact" className="relative w-full py-16 md:py-24 border-t border-border/70 scroll-mt-16">
+    <footer id="contact" className="relative w-full py-16 md:py-24 border-t border-border/70 scroll-mt-28 bg-bg transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="max-w-2xl mb-12 sm:mb-16">
+
+        {/* Section Header: sama dengan section lain (serif + muted italic) */}
+        <div className="max-w-2xl mb-10 sm:mb-14">
           <h2 className="font-serif text-28 sm:text-40 leading-[1.12] text-text tracking-[-0.01em]">
             {t("contact.titlePart1")}{" "}
             <span className="text-muted italic">{t("contact.titlePart2")}</span>
@@ -70,182 +66,130 @@ export function Contact() {
           </p>
         </div>
 
-        {/* 2-Column Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          
-          {/* Left Column (5 cols): Email, Social Links, and Status */}
-          <div className="lg:col-span-5 flex flex-col space-y-7">
-            
-            {/* Direct Email Card */}
-            <div className="bg-surface rounded-24 border border-border p-6 shadow-none space-y-3">
-              <span className="font-mono text-12 text-muted uppercase tracking-wider select-none">
-                {t("contact.emailLabel")}
-              </span>
-              <p className="font-sans font-bold text-20 text-text break-all">
-                {emailToCopy}
-              </p>
-              <div className="pt-1 flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="inline-flex items-center justify-center h-9 px-4 rounded-10 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text select-none"
-                >
-                  {copied ? `✓ ${t("contact.copiedEmail")}` : t("contact.copyEmail")}
-                </button>
+        {/* 2 Contact Cards: Email & Phone */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+
+          {/* Email Card */}
+          <div className="group relative flex items-center justify-between gap-4 p-5 sm:p-6 rounded-24 bg-surface border border-border hover:border-text/30 transition-colors">
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="w-12 h-12 rounded-12 bg-surface-2 border border-border/80 flex items-center justify-center shrink-0 text-muted group-hover:text-text transition-colors">
+                <LuMail className="text-20" aria-hidden="true" />
+              </div>
+              <div className="min-w-0">
+                <span className="block font-mono text-12 uppercase tracking-wider text-muted">
+                  {t("contact.emailLabel")}
+                </span>
                 <a
-                  href={`mailto:${emailToCopy}`}
-                  className="inline-flex items-center justify-center h-9 px-4 rounded-10 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity select-none"
+                  href={`mailto:${email}`}
+                  className="block mt-0.5 text-14 sm:text-16 font-medium text-text break-all hover:text-muted transition-colors focus:outline-none focus-visible:underline"
                 >
-                  Kirim Email ↗
+                  {email}
                 </a>
               </div>
             </div>
 
-            {/* Social Links */}
-            <div className="space-y-3">
-              <span className="font-mono text-12 text-muted uppercase tracking-wider select-none">
-                {t("contact.socialsTitle")}
-              </span>
-              <div className="flex flex-wrap gap-2.5">
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-12 bg-surface-2 border border-border text-14 font-mono text-muted hover:text-text hover:bg-surface transition-colors select-none"
-                >
-                  <SiGithub className="w-4 h-4" />
-                  <span>GitHub</span>
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-12 bg-surface-2 border border-border text-14 font-mono text-muted hover:text-text hover:bg-surface transition-colors select-none"
-                >
-                  <LuLinkedin className="w-4 h-4" />
-                  <span>LinkedIn</span>
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-12 bg-surface-2 border border-border text-14 font-mono text-muted hover:text-text hover:bg-surface transition-colors select-none"
-                >
-                  <SiInstagram className="w-4 h-4" />
-                  <span>Instagram</span>
-                </a>
-                <a
-                  href="https://dribbble.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-12 bg-surface-2 border border-border text-14 font-mono text-muted hover:text-text hover:bg-surface transition-colors select-none"
-                >
-                  <SiDribbble className="w-4 h-4" />
-                  <span>Dribbble</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Status Dot */}
-            <div className="flex items-center gap-2.5 text-14 font-mono text-text pt-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
-              <span>{t("footer.status")}</span>
-            </div>
-
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className={`shrink-0 inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-12 font-mono text-12 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text ${
+                copied
+                  ? "bg-text text-bg border border-text font-semibold"
+                  : "bg-surface-2 text-muted hover:text-text border border-border"
+              }`}
+              aria-label={copied ? t("contact.copiedEmail") : t("contact.copyEmail")}
+            >
+              {copied ? (
+                <>
+                  <LuCheck className="text-14" aria-hidden="true" />
+                  <span>{t("contact.copiedEmail")}</span>
+                </>
+              ) : (
+                <>
+                  <LuCopy className="text-12" aria-hidden="true" />
+                  <span>{t("contact.copyEmail")}</span>
+                </>
+              )}
+            </button>
           </div>
 
-          {/* Right Column (7 cols): Contact Form */}
-          <div className="lg:col-span-7 bg-surface rounded-24 border border-border p-6 sm:p-8 shadow-none">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              
-              {/* Anti-spam honeypot (hidden from human users) */}
-              <input
-                type="text"
-                name="honeypot"
-                value={formData.honeypot}
-                onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
-                tabIndex={-1}
-                autoComplete="off"
-                className="hidden"
-                aria-hidden="true"
-              />
-
-              {/* Name Input */}
-              <div className="space-y-1.5">
-                <label htmlFor="contact-name" className="block text-12 font-mono text-muted">
-                  {t("contact.form.name")}
-                </label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder={t("contact.form.namePlaceholder")}
-                  className="w-full h-11 px-4 rounded-12 bg-surface-2 border border-border text-14 text-text placeholder:text-muted/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-text transition-colors"
-                />
+          {/* Phone Card */}
+          <div className="group relative flex items-center justify-between gap-4 p-5 sm:p-6 rounded-24 bg-surface border border-border hover:border-text/30 transition-colors">
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="w-12 h-12 rounded-12 bg-surface-2 border border-border/80 flex items-center justify-center shrink-0 text-muted group-hover:text-text transition-colors">
+                <LuPhone className="text-20" aria-hidden="true" />
               </div>
-
-              {/* Email Input */}
-              <div className="space-y-1.5">
-                <label htmlFor="contact-email" className="block text-12 font-mono text-muted">
-                  {t("contact.form.email")}
-                </label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder={t("contact.form.emailPlaceholder")}
-                  className="w-full h-11 px-4 rounded-12 bg-surface-2 border border-border text-14 text-text placeholder:text-muted/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-text transition-colors"
-                />
+              <div className="min-w-0">
+                <span className="block font-mono text-12 uppercase tracking-wider text-muted">
+                  {t("contact.phoneLabel")}
+                </span>
+                <a
+                  href={`tel:${phone.replace(/\s+/g, "")}`}
+                  className="block mt-0.5 text-14 sm:text-16 font-medium text-text truncate hover:text-muted transition-colors focus:outline-none focus-visible:underline"
+                >
+                  {phone}
+                </a>
               </div>
+            </div>
 
-              {/* Message Textarea */}
-              <div className="space-y-1.5">
-                <label htmlFor="contact-message" className="block text-12 font-mono text-muted">
-                  {t("contact.form.message")}
-                </label>
-                <textarea
-                  id="contact-message"
-                  required
-                  rows={4}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder={t("contact.form.messagePlaceholder")}
-                  className="w-full p-4 rounded-12 bg-surface-2 border border-border text-14 text-text placeholder:text-muted/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-text transition-colors resize-y min-h-[110px]"
-                />
-              </div>
-
-              {/* Feedback Alert Status */}
-              {status === "success" && (
-                <div className="p-3.5 rounded-12 bg-surface-2 border border-border text-14 text-text font-medium">
-                  ✓ {t("contact.form.success")}
-                </div>
-              )}
-
-              {status === "error" && (
-                <div className="p-3.5 rounded-12 bg-surface-2 border border-red-300 dark:border-red-800 text-14 text-red-600 dark:text-red-400">
-                  ✕ {errorMessage || t("contact.form.error")}
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="w-full sm:w-auto inline-flex items-center justify-center h-11 px-7 rounded-12 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
-              >
-                {status === "sending" ? t("contact.form.sending") : t("contact.form.send")}
-              </button>
-
-            </form>
+            <a
+              href={`https://wa.me/${cleanPhone}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center justify-center h-9 px-3 rounded-12 font-mono text-12 bg-surface-2 hover:text-text text-muted border border-border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+              aria-label="WhatsApp"
+            >
+              {t("contact.phoneAction")}
+            </a>
           </div>
 
         </div>
 
+        {/* Follow me on */}
+        <div className="mt-8 sm:mt-10 flex items-center gap-3.5 flex-wrap">
+          <span className="text-14 text-muted">
+            {t("contact.followMe")}
+          </span>
+          <div className="flex items-center gap-2.5">
+            {socials.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="w-10 h-10 rounded-12 bg-surface border border-border flex items-center justify-center text-muted hover:text-text hover:border-text/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+                >
+                  <Icon className="text-16" aria-hidden="true" />
+                </a>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Start Your Project CTA Button */}
+        <div className="mt-8 sm:mt-10">
+          <a
+            href={`mailto:${email}?subject=Project%20Inquiry%20-%20Abdul%20Muid`}
+            className="inline-flex items-center justify-center gap-2.5 h-11 px-6 rounded-12 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+          >
+            <LuMail className="text-16" aria-hidden="true" />
+            <span>{t("contact.startProject")}</span>
+          </a>
+        </div>
+
+        {/* Bottom Bar: Copyright & Built with Next.js */}
+        <div className="mt-16 sm:mt-20 pt-8 border-t border-border/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-14 text-muted">
+          <p>{t("contact.copyright")}</p>
+          <p className="inline-flex items-center gap-1.5">
+            <span>{t("contact.builtWithPrefix")}</span>
+            <HiHeart className="text-red-500 inline text-14 shrink-0" aria-label="love" />
+            <span>{t("contact.builtWithSuffix")}</span>
+          </p>
+        </div>
+
       </div>
-    </section>
+    </footer>
   );
 }

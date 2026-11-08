@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { LuArrowLeft, LuArrowRight, LuArrowUpRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
 import { Project, projects } from "../../../../content/projects";
@@ -48,7 +49,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
             href="/projects"
             className="inline-flex items-center gap-1.5 font-mono text-14 text-muted hover:text-text transition-colors select-none"
           >
-            <span>←</span>
+            <LuArrowLeft aria-hidden="true" className="text-16" />
             <span>{lang === "id" ? "Kembali ke Semua Proyek" : "Back to All Projects"}</span>
           </Link>
         </div>
@@ -90,7 +91,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
                   aria-label="Repository GitHub"
                 >
                   <span>GitHub</span>
-                  <span className="text-muted text-12">↗</span>
+                  <LuArrowUpRight aria-hidden="true" className="text-14 text-muted" />
                 </a>
               )}
               {hasFigma && (
@@ -103,7 +104,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
                   aria-label="File Desain Figma"
                 >
                   <span>Figma</span>
-                  <span className="text-muted text-12">↗</span>
+                  <LuArrowUpRight aria-hidden="true" className="text-14 text-muted" />
                 </a>
               )}
               {hasDemo && (
@@ -115,7 +116,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
                   aria-label="Live Demo Website"
                 >
                   <span>Live Demo</span>
-                  <span className="text-12">↗</span>
+                  <LuArrowUpRight aria-hidden="true" className="text-14" />
                 </a>
               )}
             </div>
@@ -212,7 +213,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
                 <PlaceholderImage
                   src={item.src}
                   aspectRatio={item.aspectRatio ?? "video"}
-                  category={project.category[lang]}
+                  category={item.label ? item.label[lang] : project.category[lang]}
                   label={item.label[lang]}
                   className="w-full"
                 />
@@ -227,8 +228,9 @@ export function ProjectDetailClient({ project }: { project: Project }) {
             href={`/projects/${prevProject.slug}`}
             className="group flex flex-col items-start p-4 rounded-16 bg-surface border border-border w-full sm:w-[48%] hover:border-text/30 transition-colors"
           >
-            <span className="font-mono text-12 text-muted">
-              ← {lang === "id" ? "Proyek Sebelumnya" : "Previous Project"}
+            <span className="inline-flex items-center gap-1.5 font-mono text-12 text-muted">
+              <LuArrowLeft aria-hidden="true" className="text-14" />
+              {lang === "id" ? "Proyek Sebelumnya" : "Previous Project"}
             </span>
             <span className="font-sans font-bold text-16 text-text group-hover:underline mt-1 truncate w-full">
               {prevProject.title[lang]}
@@ -239,8 +241,9 @@ export function ProjectDetailClient({ project }: { project: Project }) {
             href={`/projects/${nextProject.slug}`}
             className="group flex flex-col items-end text-right p-4 rounded-16 bg-surface border border-border w-full sm:w-[48%] hover:border-text/30 transition-colors"
           >
-            <span className="font-mono text-12 text-muted">
-              {lang === "id" ? "Proyek Berikutnya" : "Next Project"} →
+            <span className="inline-flex items-center gap-1.5 font-mono text-12 text-muted">
+              {lang === "id" ? "Proyek Berikutnya" : "Next Project"}
+              <LuArrowRight aria-hidden="true" className="text-14" />
             </span>
             <span className="font-sans font-bold text-16 text-text group-hover:underline mt-1 truncate w-full">
               {nextProject.title[lang]}

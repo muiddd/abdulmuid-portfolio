@@ -2,17 +2,19 @@
 
 import React from "react";
 import Link from "next/link";
+import { LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { skillsData } from "../../../content/skills";
 
 export function About() {
   const { t } = useLanguage();
 
-  // Duplicate items to guarantee a 100% seamless infinite loop
-  const marqueeItems = [...skillsData, ...skillsData];
+  // Only take skills that have an icon for the marquee, duplicate for infinite loop
+  const iconSkills = skillsData.filter((skill) => skill.icon !== undefined);
+  const marqueeItems = [...iconSkills, ...iconSkills];
 
   return (
-    <section id="about" className="relative w-full py-16 md:py-24 lg:py-28 border-t border-border/60 scroll-mt-16">
+    <section id="about" className="relative w-full py-16 md:py-24 lg:py-28 border-t border-border/60 scroll-mt-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header (Sevora Style: Mono label above + Large Serif Heading) */}
@@ -37,9 +39,13 @@ export function About() {
             <div className="pt-2">
               <Link
                 href="/experience"
-                className="inline-flex items-center text-14 font-medium text-text hover:text-muted transition-colors underline-offset-4 hover:underline"
+                className="group inline-flex items-center text-14 font-medium text-text hover:text-muted transition-colors underline-offset-4 hover:underline"
               >
                 {t("about.experienceLink")}
+                <LuArrowRight
+                  aria-hidden="true"
+                  className="ml-1.5 text-14 transition-transform duration-200 group-hover:translate-x-0.5"
+                />
               </Link>
             </div>
           </div>
@@ -112,16 +118,23 @@ export function About() {
             <p className="font-mono text-12 text-muted uppercase tracking-wider">
               {t("about.skillsTitle")}
             </p>
-            <span className="font-mono text-12 text-muted/70 hidden sm:inline-block">
-              16 Technologies & Tools
-            </span>
+            <Link
+              href="/skills"
+              className="group hidden sm:inline-flex items-center font-mono text-12 text-muted/70 hover:text-text transition-colors"
+            >
+              {iconSkills.length} Technologies & Tools
+              <LuArrowRight
+                aria-hidden="true"
+                className="ml-1.5 text-12 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </Link>
           </div>
 
           {/* Marquee Viewport with Edge Gradient Fade */}
           <div className="relative w-full overflow-hidden mask-marquee py-2">
             <div className="animate-marquee flex items-center gap-3">
               {marqueeItems.map((skill, idx) => {
-                const IconComponent = skill.icon;
+                const IconComponent = skill.icon!;
 
                 return (
                   <div

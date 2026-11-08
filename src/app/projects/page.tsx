@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
 import { projects } from "../../../content/projects";
@@ -119,7 +120,10 @@ export default function ProjectsPage() {
                 <span className="group-hover:underline">
                   {lang === "id" ? "Buka Studi Kasus" : "Read Case Study"}
                 </span>
-                <span className="font-mono text-14 group-hover:translate-x-1 transition-transform">→</span>
+                <LuArrowRight
+                  aria-hidden="true"
+                  className="text-16 transition-transform duration-200 group-hover:translate-x-0.5"
+                />
               </div>
             </Link>
           ))}

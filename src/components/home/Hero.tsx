@@ -9,6 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
+import { LuArrowRight, LuArrowUpRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
 
@@ -80,7 +81,7 @@ export function Hero() {
       onPointerMove={updatePointer}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
-      className="relative isolate w-full pt-8 pb-16 md:pt-14 md:pb-24 lg:pt-16 lg:pb-28 overflow-visible scroll-mt-16"
+      className="relative isolate w-full pt-8 pb-16 md:pt-14 md:pb-24 lg:pt-16 lg:pb-28 overflow-visible scroll-mt-28"
     >
       {/* Interactive hero backdrop */}
       <div
@@ -207,9 +208,10 @@ export function Hero() {
                 className="group/cta inline-flex items-center justify-center h-10 px-5 rounded-8 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
               >
                 <span>{t("hero.ctaContact")}</span>
-                <span className="ml-1.5 transition-transform duration-300 group-hover/cta:translate-x-0.5">
-                  ↗
-                </span>
+                <LuArrowUpRight
+                  aria-hidden="true"
+                  className="ml-1.5 text-16 transition-transform duration-300 group-hover/cta:-translate-y-0.5 group-hover/cta:translate-x-0.5"
+                />
               </Link>
 
               <Link
@@ -217,9 +219,10 @@ export function Hero() {
                 className="group/cta inline-flex items-center justify-center h-10 px-5 rounded-8 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
               >
                 <span>{t("hero.ctaWork")}</span>
-                <span className="ml-1.5 transition-transform duration-300 group-hover/cta:translate-x-0.5">
-                  →
-                </span>
+                <LuArrowRight
+                  aria-hidden="true"
+                  className="ml-1.5 text-16 transition-transform duration-300 group-hover/cta:translate-x-0.5"
+                />
               </Link>
             </div>
           </div>

@@ -23,8 +23,8 @@
     "en": "English"
   },
   "hero": {
-    "portraitBadge": "Portrait · Jakarta studio",
-    "roleBadge": "Fullstack & UI/UX",
+    "portraitBadge": "Portrait · 3:4",
+    "roleBadge": "Fullstack Developer",
     "name": "Abdul Muid",
     "statement": "Fullstack Developer dan UI/UX Designer. Membangun antarmuka modern yang estetik dengan fondasi kode yang terstruktur, skalabel, dan teruji.",
     "badge": "Terbuka untuk magang",
@@ -35,12 +35,12 @@
     "label": "02 · Proyek",
     "titlePart1": "Proyek &",
     "titlePart2": "Karya Pilihan",
-    "subtitle": "[PLACEHOLDER] Eksplorasi solusi antarmuka dan pengembangan fullstack dari konsep hingga kode.",
+    "subtitle": "Eksplorasi solusi antarmuka dan pengembangan fullstack dari konsep hingga kode.",
     "viewAsCanvas": "Tampilan Kanvas",
     "viewAsList": "Tampilan List",
     "dragInstruction": "Geser untuk menjelajah",
     "viewDetails": "Lihat Studi Kasus",
-    "viewAll": "Lihat Semua Proyek →",
+    "viewAll": "Lihat Semua Proyek",
     "zoomIn": "Perbesar",
     "zoomOut": "Perkecil",
     "resetZoom": "Reset Zoom",
@@ -55,12 +55,12 @@
     "title": "Proyek Pilihan",
     "titlePart1": "Proyek &",
     "titlePart2": "Karya Pilihan",
-    "subtitle": "[PLACEHOLDER] Eksplorasi solusi antarmuka dan pengembangan fullstack dari konsep hingga kode.",
+    "subtitle": "Eksplorasi solusi antarmuka dan pengembangan fullstack dari konsep hingga kode.",
     "viewAsCanvas": "Tampilan Kanvas",
     "viewAsList": "Tampilan List",
     "dragInstruction": "Geser untuk menjelajah",
     "viewDetails": "Lihat Studi Kasus",
-    "viewAll": "Lihat Semua Proyek →",
+    "viewAll": "Lihat Semua Proyek",
     "zoomIn": "Perbesar",
     "zoomOut": "Perkecil",
     "resetZoom": "Reset Zoom"
@@ -113,7 +113,7 @@
     "titlePart1": "Pengalaman &",
     "titlePart2": "Rekam Jejak",
     "subtitle": "Perjalanan kepemimpinan mahasiswa, program komunitas, dan eksekusi proyek kolaboratif.",
-    "viewAll": "Lihat Semua Pengalaman →",
+    "viewAll": "Lihat Semua Pengalaman",
     "categories": {
       "all": "Semua",
       "ambassador": "Ambassador",
@@ -127,7 +127,7 @@
     "titlePart1": "Sertifikasi &",
     "titlePart2": "Penghargaan",
     "subtitle": "Pencapaian kompetisi bridge tingkat nasional dan dedikasi kepanitiaan acara.",
-    "viewAll": "Lihat Semua Sertifikat →",
+    "viewAll": "Lihat Semua Sertifikat",
     "viewCredential": "Lihat Kredensial",
     "downloadPdf": "Unduh PDF",
     "closeLightbox": "Tutup preview sertifikat",
@@ -149,7 +149,7 @@
     "headingMuted": "antarmuka intuitif.",
     "bioParagraph1": "Halo, saya Abdul Muid, mahasiswa Teknik Informatika di Politeknik Negeri Malang. Fokus saya ada di desain antarmuka, dan saya senang membawanya sampai jadi aplikasi web yang berjalan, dari Figma sampai kode.",
     "bioParagraph2": "Bagi saya, produk yang bagus lahir dari komunikasi yang jelas. Saya terbiasa mendengarkan kebutuhan, menjelaskan ide dengan sederhana, dan menjembatani desainer, developer, serta tim non-teknis supaya semua bergerak ke arah yang sama.",
-    "experienceLink": "Lihat pengalaman saya →",
+    "experienceLink": "Lihat pengalaman saya",
     "facts": {
       "educationLabel": "Pendidikan",
       "educationValue": "Politeknik Negeri Malang",
@@ -159,7 +159,7 @@
       "focusValue": "Fullstack Developer & UI/UX Designer"
     },
     "skillsTitle": "Keahlian & Alat yang Dikuasai",
-    "viewAllSkills": "Lihat semua keahlian →",
+    "viewAllSkills": "Lihat semua keahlian",
     "skills": {
       "groupFrontend": "Frontend",
       "groupBackend": "Backend & Database",
@@ -172,9 +172,9 @@
     "label": "Keahlian",
     "titlePart1": "Keahlian Teknis &",
     "titlePart2": "Alat Kerja",
-    "subtitle": "[PLACEHOLDER] Gambaran menyeluruh mengenai bahasa pemrograman, framework, alat desain, dan alur kerja pengembangan perangkat lunak yang saya gunakan.",
+    "subtitle": "Gambaran menyeluruh mengenai bahasa pemrograman, framework, alat desain, dan alur kerja pengembangan perangkat lunak yang saya gunakan.",
     "subnavAria": "Navigasi kategori keahlian",
-    "viewAll": "Lihat semua keahlian →",
+    "viewAll": "Lihat semua keahlian",
     "categories": {
       "frontend": "Frontend",
       "backend": "Backend & Database",
@@ -185,40 +185,36 @@
     }
   },
   "contact": {
-    "label": "05 · Kontak",
-    "title": "Mari Berkolaborasi",
-    "titlePart1": "Mari Berdiskusi &",
-    "titlePart2": "Berkolaborasi",
-    "subtitle": "[PLACEHOLDER] Terbuka untuk peluang magang Fullstack Developer atau UI/UX Intern. Silakan kirimkan pesan atau hubungi langsung via surel.",
-    "emailLabel": "Surel Langsung",
-    "emailAddress": "[PLACEHOLDER] abdulmuid.dev@gmail.com",
+    "badge": "MARI TERHUBUNG",
+    "title": "Mari Terhubung",
+    "titlePart1": "Mari",
+    "titlePart2": "Terhubung",
+    "subtitle": "Saya sangat terbuka untuk mendiskusikan peluang proyek atau magang. Mari membangun sesuatu yang luar biasa bersama!",
+    "emailLabel": "Email",
+    "emailAddress": "muidabdulmuid99@gmail.com",
     "copyEmail": "Salin Email",
     "copiedEmail": "Tersalin!",
+    "phoneLabel": "Telepon",
+    "phoneNumber": "+62 857 3001 3648",
+    "phoneAction": "WhatsApp",
+    "followMe": "Ikuti saya di",
+    "startProject": "Mulai Proyek",
     "socialsTitle": "Jejaring & Profil",
     "socials": {
-      "github": "https://github.com",
-      "linkedin": "https://linkedin.com",
-      "instagram": "https://instagram.com"
+      "github": "https://github.com/muiddd",
+      "linkedin": "https://www.linkedin.com/in/abdul-muid-67531b335",
+      "instagram": "https://www.instagram.com/muiddd__/"
     },
-    "form": {
-      "name": "Nama Anda",
-      "namePlaceholder": "Nama lengkap Anda",
-      "email": "Alamat Email",
-      "emailPlaceholder": "nama@email.com",
-      "message": "Pesan",
-      "messagePlaceholder": "Ceritakan tentang peluang magang atau kebutuhan proyek Anda...",
-      "send": "Kirim Pesan",
-      "sending": "Mengirim...",
-      "success": "Pesan berhasil terkirim. Terima kasih!",
-      "error": "Gagal mengirim pesan. Silakan hubungi via email langsung."
-    }
+    "copyright": "© 2026 Abdul Muid. Hak cipta dilindungi undang-undang.",
+    "builtWithPrefix": "Dibuat dengan",
+    "builtWithSuffix": "menggunakan Next.js"
   },
   "footer": {
     "status": "Terbuka untuk proyek & magang",
     "pages": "Halaman",
     "elsewhere": "Tautan",
     "note": "Portofolio Abdul Muid, Fullstack Developer & UI/UX Designer. Dibangun dengan Next.js dan Tailwind CSS.",
-    "copyright": "© 2026 Abdul Muid",
+    "copyright": "© 2026 Abdul Muid. Hak cipta dilindungi undang-undang.",
     "backToTop": "Kembali ke atas"
   },
   "common": {

@@ -1,13 +1,5 @@
-"use client";
-
-import React from "react";
-import { Contact } from "@/components/home/Contact";
+import { redirect } from "next/navigation";
 
 export default function ContactPage() {
-  return (
-    <main className="w-full">
-      <Contact />
-    </main>
-  );
+  redirect("/#contact");
 }
-

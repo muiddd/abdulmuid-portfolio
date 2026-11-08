@@ -23,8 +23,8 @@
     "en": "English"
   },
   "hero": {
-    "portraitBadge": "Portrait · Jakarta studio",
-    "roleBadge": "Fullstack & UI/UX",
+    "portraitBadge": "Portrait · 3:4",
+    "roleBadge": "Fullstack Developer",
     "name": "Abdul Muid",
     "statement": "Fullstack Developer and UI/UX Designer. Crafting modern, performant, and intuitive web applications and design systems.",
     "badge": "Open for internship opportunities",
@@ -35,12 +35,12 @@
     "label": "02 · Projects",
     "titlePart1": "Selected",
     "titlePart2": "Projects & Work",
-    "subtitle": "[PLACEHOLDER] Exploring interface solutions and fullstack development from concept to code.",
+    "subtitle": "Exploring interface solutions and fullstack development from concept to code.",
     "viewAsCanvas": "Canvas View",
     "viewAsList": "List View",
     "dragInstruction": "Drag to explore",
     "viewDetails": "View Case Study",
-    "viewAll": "View All Projects →",
+    "viewAll": "View All Projects",
     "zoomIn": "Zoom In",
     "zoomOut": "Zoom Out",
     "resetZoom": "Reset Zoom",
@@ -60,7 +60,7 @@
     "viewAsList": "List View",
     "dragInstruction": "Drag to explore",
     "viewDetails": "View Case Study",
-    "viewAll": "View All Projects →",
+    "viewAll": "View All Projects",
     "zoomIn": "Zoom In",
     "zoomOut": "Zoom Out",
     "resetZoom": "Reset Zoom"
@@ -113,7 +113,7 @@
     "titlePart1": "Experience &",
     "titlePart2": "Leadership",
     "subtitle": "Track record across student leadership, community programs, and collaborative project execution.",
-    "viewAll": "View All Experience →",
+    "viewAll": "View All Experience",
     "categories": {
       "all": "All",
       "ambassador": "Ambassador",
@@ -127,7 +127,7 @@
     "titlePart1": "Certificates &",
     "titlePart2": "Awards",
     "subtitle": "National-level bridge competition achievements and event committee dedication.",
-    "viewAll": "View All Certificates →",
+    "viewAll": "View All Certificates",
     "viewCredential": "View Credential",
     "downloadPdf": "Download PDF",
     "closeLightbox": "Close certificate preview",
@@ -149,7 +149,7 @@
     "headingMuted": "intuitive interfaces.",
     "bioParagraph1": "Hi, I'm Abdul Muid, an Informatics Engineering student at Politeknik Negeri Malang. My strength is interface design, and I enjoy taking a design all the way to a working web app, from Figma to code.",
     "bioParagraph2": "To me, good products come from clear communication. I listen closely to what people need, explain ideas simply, and bridge designers, developers, and non-technical teammates so everyone moves in the same direction.",
-    "experienceLink": "See my experience →",
+    "experienceLink": "See my experience",
     "facts": {
       "educationLabel": "Education",
       "educationValue": "Politeknik Negeri Malang",
@@ -159,7 +159,7 @@
       "focusValue": "Fullstack Developer & UI/UX Designer"
     },
     "skillsTitle": "Skills & Technologies",
-    "viewAllSkills": "See all skills →",
+    "viewAllSkills": "See all skills",
     "skills": {
       "groupFrontend": "Frontend",
       "groupBackend": "Backend & Database",
@@ -172,9 +172,9 @@
     "label": "Skills",
     "titlePart1": "Technical Skills &",
     "titlePart2": "Tooling",
-    "subtitle": "[PLACEHOLDER] A comprehensive overview of programming languages, frameworks, design systems, and developer tooling I work with.",
+    "subtitle": "A comprehensive overview of programming languages, frameworks, design systems, and developer tooling I work with.",
     "subnavAria": "Skills category navigation",
-    "viewAll": "See all skills →",
+    "viewAll": "See all skills",
     "categories": {
       "frontend": "Frontend",
       "backend": "Backend & Database",
@@ -217,41 +217,36 @@
     ]
   },
   "contact": {
-    "label": "05 · Contact",
+    "badge": "LET'S CONNECT",
     "title": "Let's Connect",
-    "titlePart1": "Let's Connect &",
-    "titlePart2": "Collaborate",
-    "subtitle": "[PLACEHOLDER] Open for Fullstack Developer or UI/UX Intern opportunities. Drop me a note below or reach out via direct email.",
-    "emailLabel": "Direct Email",
-    "emailAddress": "[PLACEHOLDER] abdulmuid.dev@gmail.com",
-    "copyEmail": "Copy Email",
+    "titlePart1": "Let's",
+    "titlePart2": "Connect",
+    "subtitle": "I would love to hear about your project. Let us build something extraordinary together!",
+    "emailLabel": "Email",
+    "emailAddress": "muidabdulmuid99@gmail.com",
+    "copyEmail": "Click to copy",
     "copiedEmail": "Copied!",
+    "phoneLabel": "Phone",
+    "phoneNumber": "+62 857 3001 3648",
+    "phoneAction": "WhatsApp",
+    "followMe": "Follow me on",
+    "startProject": "Start Your Project",
     "socialsTitle": "Profiles & Links",
     "socials": {
-      "github": "https://github.com",
-      "linkedin": "https://linkedin.com",
-      "instagram": "https://instagram.com",
-      "dribbble": "https://dribbble.com"
+      "github": "https://github.com/muiddd",
+      "linkedin": "https://www.linkedin.com/in/abdul-muid-67531b335",
+      "instagram": "https://www.instagram.com/muiddd__/"
     },
-    "form": {
-      "name": "Your Name",
-      "namePlaceholder": "Your full name",
-      "email": "Email Address",
-      "emailPlaceholder": "name@example.com",
-      "message": "Message",
-      "messagePlaceholder": "Tell me about your internship role or collaboration ideas...",
-      "send": "Send Message",
-      "sending": "Sending...",
-      "success": "Message sent successfully. Thank you!",
-      "error": "Failed to send message. Please contact directly via email."
-    }
+    "copyright": "© 2026 Abdul Muid. All rights reserved.",
+    "builtWithPrefix": "Built with",
+    "builtWithSuffix": "using Next.js"
   },
   "footer": {
     "status": "Open for projects & internships",
     "pages": "Pages",
     "elsewhere": "Elsewhere",
     "note": "Abdul Muid's portfolio — Fullstack Developer & UI/UX Designer. Built with Next.js and Tailwind CSS.",
-    "copyright": "© 2026 Abdul Muid",
+    "copyright": "© 2026 Abdul Muid. All rights reserved.",
     "backToTop": "Back to top"
   },
   "common": {

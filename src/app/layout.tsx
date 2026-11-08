@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CustomCursor } from "@/components/common/CustomCursor";
+import { InteractiveBackground } from "@/components/common/InteractiveBackground";
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -81,13 +83,15 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="antialiased min-h-screen flex flex-col selection:bg-text selection:text-bg bg-bg text-text">
+        <InteractiveBackground />
         <ThemeProvider>
           <LanguageProvider>
             <Navbar />
-            <main className="flex-1 w-full">
+            <div className="flex-1 w-full">
               {children}
-            </main>
+            </div>
             <Footer />
+            <CustomCursor />
           </LanguageProvider>
         </ThemeProvider>
       </body>

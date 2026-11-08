@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
 import { skillsData } from "../../../content/skills";
@@ -37,7 +38,7 @@ export default function AboutPage() {
               aspectRatio="portrait"
               category="Portrait"
               label="Abdul Muid"
-              className="w-full grayscale contrast-[1.04]"
+              className="w-full"
             />
           </div>
 
@@ -98,30 +99,53 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Complete Skills Directory */}
+        {/* Featured Skills Summary Card */}
         <section className="space-y-6">
           <div className="space-y-2">
             <span className="font-mono text-12 text-muted uppercase tracking-wider block">
               Tech Stack & Toolkit
             </span>
             <h2 className="font-serif text-28 sm:text-40 leading-[1.12] tracking-[-0.01em] text-text">
-              {lang === "id" ? "Keahlian & Teknologi" : "Skills & Technologies"}
+              {lang === "id" ? "Keahlian Unggulan" : "Featured Skills"}
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-            {skillsData.map((skill) => {
-              const IconComp = skill.icon;
-              return (
-                <div
-                  key={skill.id}
-                  className="flex items-center gap-3 p-3.5 rounded-16 bg-surface border border-border text-text"
-                >
-                  <IconComp className="w-5 h-5 text-muted shrink-0" />
-                  <span className="font-sans text-14 font-medium truncate">{skill.name}</span>
-                </div>
-              );
-            })}
+          {/* 8 Featured Skills Grid: 4 cols desktop, 3 cols mobile */}
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
+            {skillsData
+              .filter((skill) => skill.featured)
+              .map((skill) => {
+                const IconComp = skill.icon!;
+                return (
+                  <div
+                    key={skill.id}
+                    tabIndex={0}
+                    role="img"
+                    aria-label={skill.name}
+                    title={skill.name}
+                    className="group flex flex-col items-center justify-center p-3.5 sm:p-5 rounded-16 sm:rounded-20 bg-surface border border-border text-muted hover:text-text hover:border-text/30 hover:-translate-y-1 transition-all duration-200 cursor-pointer select-none shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+                  >
+                    <IconComp className="w-6 h-6 sm:w-8 sm:h-8 text-muted group-hover:text-text transition-colors duration-200" />
+                    <span className="mt-2 sm:mt-2.5 font-sans text-12 sm:text-14 font-medium text-text text-center truncate max-w-full">
+                      {skill.name}
+                    </span>
+                  </div>
+                );
+              })}
+          </div>
+
+          {/* Secondary Button to /skills */}
+          <div className="pt-2">
+            <Link
+              href="/skills"
+              className="group inline-flex items-center justify-center gap-2 h-10 px-5 rounded-12 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+            >
+              {t("about.viewAllSkills")}
+              <LuArrowRight
+                aria-hidden="true"
+                className="text-16 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </Link>
           </div>
         </section>
 
@@ -145,9 +169,13 @@ export default function AboutPage() {
 
           <Link
             href="/experience"
-            className="text-14 font-medium text-text hover:underline"
+            className="group inline-flex items-center text-14 font-medium text-text hover:underline"
           >
-            {lang === "id" ? "Lihat Pengalaman & Sertifikat →" : "Explore Experience & Credentials →"}
+            {lang === "id" ? "Lihat Pengalaman & Sertifikat" : "Explore Experience & Credentials"}
+            <LuArrowRight
+              aria-hidden="true"
+              className="ml-1.5 text-14 transition-transform duration-200 group-hover:translate-x-0.5"
+            />
           </Link>
         </section>
 

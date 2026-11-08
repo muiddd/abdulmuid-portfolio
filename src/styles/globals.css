@@ -9,15 +9,20 @@
   
   html {
     scroll-behavior: smooth;
+    /* `clip` instead of `hidden`: it still prevents horizontal overflow, but
+       unlike `hidden` it does not create a scroll container — which would
+       silently break `position: sticky` on the floating navbar. */
+    overflow-x: clip;
+    max-width: 100vw;
   }
 
   body {
     background-color: var(--bg);
-    background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
-    background-size: 24px 24px;
     color: var(--text);
     font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     min-height: 100vh;
+    overflow-x: clip;
+    max-width: 100vw;
     transition: background-color 200ms ease, color 200ms ease;
   }
 
@@ -59,4 +64,50 @@
     width: 100%;
     justify-content: center;
   }
+}
+
+/*
+ * Custom cursor.
+ * The class is added by <CustomCursor /> only when a fine pointer is present
+ * and the user has not asked for reduced motion, so touch devices and
+ * reduced-motion users always keep the native cursor.
+ */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.has-custom-cursor,
+  html.has-custom-cursor body,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+/*
+ * Footer block.
+ * Always renders as a solid dark slab (like the reference site) so it reads as
+ * a distinct section in both themes. Colors are scoped here instead of using
+ * the global tokens, which would invert the block in dark mode.
+ */
+.footer-block {
+  --footer-bg: #111111;
+  --footer-fg: #F2F2F0;
+  --footer-muted: rgba(242, 242, 240, 0.56);
+  --footer-border: rgba(242, 242, 240, 0.14);
+  --footer-accent: #8E7BFF;
+
+  background-color: var(--footer-bg);
+  color: var(--footer-fg);
+}
+
+.dark .footer-block {
+  /* Slightly darker than the dark page background so the block still reads. */
+  --footer-bg: #0B0B0C;
+  --footer-border: rgba(242, 242, 240, 0.12);
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge, Opera, and Firefox */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

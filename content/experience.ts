@@ -1,4 +1,4 @@
-export type ExperienceCategory = "ambassador" | "organisasi" | "kompetisi" | "proyek";
+export type ExperienceCategory = "ambassador" | "organisasi" | "volunteer";
 
 export interface ExperienceItem {
   id: string;
@@ -6,8 +6,8 @@ export interface ExperienceItem {
   role: { id: string; en: string };
   org: string;
   badge?: { id: string; en: string };
-  start: string;
-  end: string;
+  start: { id: string; en: string } | string;
+  end: { id: string; en: string } | string;
   bullets: {
     id: string[];
     en: string[];
@@ -16,112 +16,137 @@ export interface ExperienceItem {
 }
 
 export const experiences: ExperienceItem[] = [
+  // 1. Ambassador - Ongoing
   {
-    id: "google-student-ambassador",
+    id: "google-student-ambassador-batch-2",
     type: "ambassador",
     role: {
       id: "Google Student Ambassador",
       en: "Google Student Ambassador",
     },
-    org: "Google Student Ambassador Program",
+    org: "Google Student Ambassador Program (Batch 2)",
     badge: {
-      id: "Terpilih 2.000 dari 85.000 pendaftar",
-      en: "Selected 2,000 of 85,000 applicants",
+      id: "Malang, Jawa Timur, Indonesia",
+      en: "Malang, East Java, Indonesia",
     },
-    start: "[PLACEHOLDER] 2024",
-    end: "[PLACEHOLDER] Sekarang",
+    start: { id: "Okt 2026", en: "Oct 2026" },
+    end: { id: "Sekarang", en: "Present" },
     bullets: {
       id: [
-        "[PLACEHOLDER] Terpilih dari 85.000 pendaftar untuk menginisiasi dan menyelenggarakan workshop teknologi di lingkungan kampus.",
-        "[PLACEHOLDER] Membangun jejaring komunitas mahasiswa pengembang dan memfasilitasi adopsi alat produktivitas digital.",
-        "[PLACEHOLDER] Mengoordinasikan event kolaboratif lintas universitas yang mengedepankan inovasi dan literasi digital.",
+        "Terpilih sebagai Google Student Ambassador (GSA) Batch 2 yang mewakili Politeknik Negeri Malang, dengan peran pemimpin teknologi dan penghubung kampus.",
+        "Mendorong literasi digital dan adopsi kecerdasan buatan di lingkungan kampus.",
+        "Terpilih 2.000 dari 85.000 pendaftar.",
       ],
       en: [
-        "[PLACEHOLDER] Selected among 85,000 applicants to initiate and conduct tech workshops across campus.",
-        "[PLACEHOLDER] Built a student developer network fostering practical digital tool adoption.",
-        "[PLACEHOLDER] Coordinated collaborative cross-university tech events focusing on digital innovation.",
+        "Selected as a Google Student Ambassador (GSA) Batch 2 representing Politeknik Negeri Malang, serving as a campus technology leader and liaison.",
+        "Driving digital literacy and artificial intelligence adoption on campus.",
+        "Selected among 2,000 of 85,000 applicants.",
       ],
     },
   },
+
+  // 2. Organisasi - Ongoing (Satu-satunya entri UKM Olah Raga)
   {
-    id: "ketua-pelaksana-bridge",
+    id: "ukm-olahraga-polinema-ketua-subdivisi",
     type: "organisasi",
     role: {
-      id: "Ketua Pelaksana Event Bridge Tingkat Nasional",
-      en: "Organizing Committee Lead — National Bridge Event",
+      id: "Ketua Sub-Divisi Bridge",
+      en: "Head of Bridge Sub-Division",
     },
-    org: "Politeknik Negeri Malang",
+    org: "UKM Olah Raga Politeknik Negeri Malang",
     badge: {
-      id: "Event Nasional Kampus",
-      en: "Campus National Event",
+      id: "On-site",
+      en: "On-site",
     },
-    start: "[PLACEHOLDER] 2024",
-    end: "[PLACEHOLDER] 2024",
+    start: { id: "Feb 2026", en: "Feb 2026" },
+    end: { id: "Sekarang", en: "Present" },
     bullets: {
       id: [
-        "[PLACEHOLDER] Memimpin kepanitiaan dalam menyelenggarakan kejuaraan bridge tingkat nasional di lingkungan kampus.",
-        "[PLACEHOLDER] Mengoordinasikan divisi operasional, teknis pertandingan, dan komunikasi kemitraan eksternal.",
-        "[PLACEHOLDER] Mengelola alokasi anggaran dan memastikan kelancaran alur kompetisi dengan peserta dari berbagai daerah.",
+        "Ditunjuk sebagai Steering Committee (SC) pada divisi pengembangan sumber daya manusia (PSDM).",
+        "Memimpin Sub-Divisi Bridge, mengelola keberlanjutan organisasi dan kegiatan bridge Polinema.",
       ],
       en: [
-        "[PLACEHOLDER] Led the student committee in organizing the campus-hosted national-scale bridge tournament.",
-        "[PLACEHOLDER] Coordinated tournament operations, match adjudication logistics, and external communications.",
-        "[PLACEHOLDER] Managed budget allocation and maintained tournament flow for nationwide student delegations.",
+        "Appointed as Steering Committee (SC) within the human resources development (HRD/PSDM) division.",
+        "Leading the Bridge Sub-Division, governing organizational sustainability and Polinema's bridge activities.",
       ],
     },
   },
+
+  // 3. Organisasi - Ongoing (Satu-satunya entri Polinema Bridge Community)
   {
-    id: "juara-kompetisi-bridge",
-    type: "kompetisi",
+    id: "polinema-bridge-community-wakil-ketua",
+    type: "organisasi",
     role: {
-      id: "Juara Kompetisi Bridge Nasional",
-      en: "National Bridge Competition Winner",
+      id: "Wakil Ketua",
+      en: "Vice Chairman",
     },
-    org: "Perwakilan Kontingen Kampus",
-    badge: {
-      id: "Peringkat: [PLACEHOLDER]",
-      en: "Rank: [PLACEHOLDER]",
-    },
-    start: "[PLACEHOLDER] 2024",
-    end: "[PLACEHOLDER] 2024",
+    org: "Polinema Bridge Community",
+    start: { id: "Sep 2025", en: "Sep 2025" },
+    end: { id: "Sekarang", en: "Present" },
     bullets: {
       id: [
-        "[PLACEHOLDER] Mewakili kampus dalam kejuaraan bridge tingkat nasional dengan hasil pencapaian juara kompetitif.",
-        "[PLACEHOLDER] Mengembangkan pemikiran strategis, ketahanan analitis, dan koordinasi taktis tingkat tinggi.",
-        "[PLACEHOLDER] Berkontribusi pada reputasi prestasi mahasiswa kampus di ajang kompetisi olahraga otak nasional.",
+        "Dipercaya membantu Ketua mengawasi stabilitas organisasi dan perencanaan strategis.",
+        "Berkoordinasi dengan para kepala divisi agar program kerja selaras dengan visi komunitas.",
       ],
       en: [
-        "[PLACEHOLDER] Represented the polytechnic delegation in national-level competitive bridge tournaments.",
-        "[PLACEHOLDER] Developed advanced analytical reasoning, strategic decision-making, and high-stakes partnership coordination.",
-        "[PLACEHOLDER] Contributed to institutional academic and mind-sport accolades at the national level.",
+        "Trusted to assist the Chairman in overseeing organizational stability and strategic planning.",
+        "Coordinated with division heads to ensure work programs aligned with the community's vision.",
       ],
     },
   },
+
+  // 4. Volunteer - Finished
   {
-    id: "pm-pbl-sem-4",
-    type: "proyek",
+    id: "jti-play-it-2026-pdd",
+    type: "volunteer",
     role: {
-      id: "Project Manager, Project Based Learning (PBL) semester 4",
-      en: "Project Manager, Project Based Learning (PBL) semester 4",
+      id: "Staf Desain, Publikasi, dan Dokumentasi (PDD)",
+      en: "Design, Publication, and Documentation (PDD) Staff",
     },
-    org: "Project Based Learning (PBL) Semester 4, Politeknik Negeri Malang",
-    badge: {
-      id: "Semester 4",
-      en: "Semester 4",
-    },
-    start: "Semester 4",
-    end: "2024",
+    org: "JTI Play IT 2026",
+    start: { id: "Apr 2026", en: "Apr 2026" },
+    end: { id: "Jun 2026", en: "Jun 2026" },
     bullets: {
       id: [
-        "[PLACEHOLDER] Memimpin tim lintas fungsi (desain dan engineering) dalam membangun aplikasi pembelajaran digital kolaboratif.",
-        "[PLACEHOLDER] Menyusun backlog fitur, sprint berkala, serta melakukan penjaminan kualitas kode dan antarmuka.",
-        "[PLACEHOLDER] Menghasilkan produk MVP yang berjalan lancar dan siap dipresentasikan di hadapan dosen penguji.",
+        "Berkontribusi di divisi Desain, Publikasi, dan Dokumentasi untuk PLAY IT!, kompetisi dan inisiatif hackathon IT yang diselenggarakan Jurusan Teknologi Informasi.",
       ],
       en: [
-        "[PLACEHOLDER] Led a cross-functional student team (UI/UX & engineering) building a collaborative digital learning app.",
-        "[PLACEHOLDER] Structured product backlog, milestone sprint plans, and verified UI quality assurance.",
-        "[PLACEHOLDER] Delivered a fully working MVP web app presented successfully for course evaluation.",
+        "Contributed to the Design, Publication, and Documentation division for PLAY IT!, an IT competition and hackathon initiative organized by the Information Technology Department.",
       ],
+    },
+  },
+
+  // 5. Volunteer - Finished (Single year 2026, no bullets)
+  {
+    id: "campus-fair-smanggi-2026-mc",
+    type: "volunteer",
+    role: {
+      id: "Master of Ceremony & Relawan",
+      en: "Master of Ceremony & Volunteer",
+    },
+    org: "Campus Fair SMANGGI 2026 (Alumni SMAN 1 Singgahan)",
+    start: { id: "2026", en: "2026" },
+    end: { id: "2026", en: "2026" },
+    bullets: {
+      id: [],
+      en: [],
+    },
+  },
+
+  // 6. Volunteer - Finished (No bullets)
+  {
+    id: "campus-fair-smanggi-2025-sosialisasi",
+    type: "volunteer",
+    role: {
+      id: "Relawan Sosialisasi Sekolah & Acara",
+      en: "School Outreach & Event Volunteer",
+    },
+    org: "Campus Fair SMANGGI 2025 (Alumni SMAN 1 Singgahan)",
+    start: { id: "Des 2024", en: "Dec 2024" },
+    end: { id: "Jan 2025", en: "Jan 2025" },
+    bullets: {
+      id: [],
+      en: [],
     },
   },
 ];
