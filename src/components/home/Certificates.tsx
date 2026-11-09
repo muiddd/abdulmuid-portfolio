@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { LuArrowDown, LuArrowRight, LuArrowUpRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
+import { Reveal } from "@/components/common/Reveal";
 import {
   certificates,
   CertificateItem,
@@ -169,7 +170,7 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14">
+        <Reveal as="div" y={22} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14">
           <div className="max-w-2xl">
             <h2 className="font-serif text-28 sm:text-40 leading-[1.12] text-text tracking-[-0.01em]">
               {t("certificates.titlePart1")}{" "}
@@ -182,7 +183,7 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
 
           {/* Category Filter Pills (Hanya tampilkan jika ada lebih dari 1 kategori yang punya item) */}
           {visibleCategories.length > 1 && (
-            <div className="flex flex-wrap items-center gap-2 self-start md:self-end">
+            <Reveal as="div" delay={0.12} y={16} className="flex flex-wrap items-center gap-2 self-start md:self-end">
               {visibleCategories.map((cat) => {
                 const isActive = activeCategory === cat.id;
 
@@ -201,20 +202,23 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                   </button>
                 );
               })}
-            </div>
+            </Reveal>
           )}
-        </div>
+        </Reveal>
 
         {/* Certificates List: satu baris per sertifikat, pratinjau gambar hanya di lightbox */}
         <div className="flex flex-col gap-3 sm:gap-4">
-          {displayItems.map((cert) => {
+          {displayItems.map((cert, idx) => {
             const certTitle = getCertTitle(cert);
             const badge = getCertBadge(cert);
             const eventDate = getCertEventDate(cert);
 
             return (
-              <div
+              <Reveal
                 key={cert.id}
+                as="div"
+                delay={idx * 0.06}
+                y={22}
                 role="button"
                 tabIndex={0}
                 onClick={(e) => handleOpenModal(cert, e)}
@@ -266,14 +270,14 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                     className="text-14 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                   />
                 </div>
-              </div>
+              </Reveal>
             );
           })}
         </div>
 
         {/* View All Button */}
         {showViewAll && (
-          <div className="pt-10 sm:pt-14 flex justify-center">
+          <Reveal as="div" delay={0.1} y={18} className="pt-10 sm:pt-14 flex justify-center">
             <Link
               href="/experience"
               className="group inline-flex items-center justify-center gap-2 h-11 px-6 rounded-12 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
@@ -284,7 +288,7 @@ export function Certificates({ limit = 6, showViewAll = true }: CertificatesProp
                 className="text-16 transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </Link>
-          </div>
+          </Reveal>
         )}
 
       </div>

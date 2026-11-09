@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -16,11 +17,18 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={(e) => toggleTheme({ x: e.clientX, y: e.clientY })}
       className={`inline-flex items-center justify-center w-10 h-10 rounded-12 border border-border bg-surface-2 text-text hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text ${className}`}
       aria-label={t("theme.toggle")}
       title={mounted && theme === "dark" ? t("theme.light") : t("theme.dark")}
     >
+      <motion.span
+        key={mounted ? theme : "initial"}
+        initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+        animate={{ rotate: 0, opacity: 1, scale: 1 }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="inline-flex items-center justify-center"
+      >
       {mounted && theme === "dark" ? (
         // Sun icon for switching to light
         <svg
@@ -64,6 +72,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
         </svg>
       )}
+      </motion.span>
     </button>
   );
 }

@@ -3,13 +3,16 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import { useEntrance } from "@/context/EntranceContext";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { LanguageToggle } from "@/components/common/LanguageToggle";
 
 export function Navbar() {
   const { t } = useLanguage();
+  const { ready } = useEntrance();
+  const shouldReduceMotion = useReducedMotion();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
@@ -113,7 +116,18 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full px-3 pt-3 sm:px-4 md:px-6 lg:px-8">
+    <motion.header
+      initial={shouldReduceMotion ? false : { y: -28, opacity: 0 }}
+      animate={
+        shouldReduceMotion
+          ? undefined
+          : ready
+            ? { y: 0, opacity: 1 }
+            : { y: -28, opacity: 0 }
+      }
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="sticky top-0 z-50 w-full px-3 pt-3 sm:px-4 md:px-6 lg:px-8"
+    >
       <div
         className={`mx-auto max-w-6xl rounded-16 border transition-all duration-300 ${
           scrolled
@@ -299,6 +313,6 @@ export function Navbar() {
           )}
         </AnimatePresence>
       </div>
-    </header>
+    </motion.header>
   );
 }

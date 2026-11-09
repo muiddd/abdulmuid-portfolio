@@ -42,13 +42,20 @@
   }
 }
 
-.animate-marquee {
+.animate-marquee,
+.animate-marquee-reverse {
   display: flex;
   width: max-content;
   animation: marquee 32s linear infinite;
 }
 
-.animate-marquee:hover {
+/* Second row scrolls the opposite way so the pair feels alive. */
+.animate-marquee-reverse {
+  animation-direction: reverse;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
   animation-play-state: paused;
 }
 
@@ -58,11 +65,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
+  .animate-marquee,
+  .animate-marquee-reverse {
     animation: none;
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
+  }
+
+  /* The duplicated half only exists to make the loop seamless. */
+  [data-marquee-dup="true"] {
+    display: none;
   }
 }
 
@@ -110,4 +123,290 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* First-visit preloader                                               */
+/* ------------------------------------------------------------------ */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  /* Below the custom cursor (z-9999) so the pointer stays visible. */
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  will-change: transform;
+  /* The curtain lifts quickly; content reveals just after it starts moving. */
+  transition: transform 520ms var(--motion-ease);
+}
+
+.preloader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 26px 26px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.preloader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 42%,
+    var(--accent),
+    transparent 70%
+  );
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.preloader--exiting {
+  transform: translateY(-100%);
+}
+
+/* Set by the inline script in the root layout for returning visitors. */
+html.preloader-skip .preloader {
+  display: none !important;
+}
+
+body.preloader-active {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.preloader__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 8vh, 56px);
+  width: min(100%, 560px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.preloader--exiting .preloader__inner {
+  opacity: 0;
+  transform: translateY(-18px);
+}
+
+.preloader__brand {
+  position: relative;
+  animation: preloader-rise 700ms var(--motion-ease) both;
+}
+
+.preloader__tag {
+  position: absolute;
+  top: -22px;
+  left: 0;
+  z-index: 2;
+  padding: 2px 8px;
+  background-color: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.preloader__frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 6vw, 36px) clamp(24px, 7vw, 48px);
+  border: 1px solid var(--accent);
+  background-color: var(--surface-2);
+  box-shadow: 0 24px 80px -40px rgba(0, 0, 0, 0.35);
+}
+
+.preloader__name {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(40px, 11vw, 64px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+/* Figma-style selection handles around the name frame. */
+.preloader__handle {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: var(--surface-2);
+  border: 1px solid var(--accent);
+  animation: preloader-handle 1400ms ease-in-out infinite;
+}
+
+.preloader__handle--tl {
+  top: -3.5px;
+  left: -3.5px;
+}
+
+.preloader__handle--tr {
+  top: -3.5px;
+  right: -3.5px;
+  animation-delay: 120ms;
+}
+
+.preloader__handle--bl {
+  bottom: -3.5px;
+  left: -3.5px;
+  animation-delay: 240ms;
+}
+
+.preloader__handle--br {
+  bottom: -3.5px;
+  right: -3.5px;
+  animation-delay: 360ms;
+}
+
+.preloader__footer {
+  animation: preloader-rise 700ms var(--motion-ease) 140ms both;
+}
+
+.preloader__meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.preloader__status {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.preloader__dots span {
+  animation: preloader-blink 1100ms infinite both;
+}
+
+.preloader__dots span:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.preloader__dots span:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.preloader__percent {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  color: var(--text);
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.preloader__percent-sign {
+  font-size: 0.6em;
+  color: var(--muted);
+}
+
+.preloader__track {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background-color: var(--border);
+  overflow: hidden;
+}
+
+.preloader__bar {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background-color: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@keyframes preloader-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes preloader-blink {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes preloader-handle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.35);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Theme switch animation                                              */
+/* ------------------------------------------------------------------ */
+
+/*
+ * Circular reveal driven by the View Transitions API in ThemeContext.
+ * The old snapshot stays put while the new one is clipped in from the
+ * click point, so only the incoming theme needs to animate.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/*
+ * Fallback for browsers without View Transitions: crossfade colour
+ * properties on every element for a moment while the theme changes.
+ * Added/removed by ThemeContext around the toggle.
+ */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition-property: background-color, color, border-color, fill, stroke,
+    box-shadow !important;
+  transition-duration: 380ms !important;
+  transition-timing-function: var(--motion-ease) !important;
+  transition-delay: 0s !important;
 }

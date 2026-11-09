@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import { Reveal } from "@/components/common/Reveal";
 import { LuMail, LuPhone, LuCopy, LuCheck, LuLinkedin } from "react-icons/lu";
 import { SiGithub, SiInstagram } from "react-icons/si";
 import { HiHeart } from "react-icons/hi2";
@@ -56,7 +57,7 @@ export function Contact() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header: sama dengan section lain (serif + muted italic) */}
-        <div className="max-w-2xl mb-10 sm:mb-14">
+        <Reveal as="div" y={22} className="max-w-2xl mb-10 sm:mb-14">
           <h2 className="font-serif text-28 sm:text-40 leading-[1.12] text-text tracking-[-0.01em]">
             {t("contact.titlePart1")}{" "}
             <span className="text-muted italic">{t("contact.titlePart2")}</span>
@@ -64,13 +65,13 @@ export function Contact() {
           <p className="mt-3.5 text-16 text-muted leading-relaxed">
             {t("contact.subtitle")}
           </p>
-        </div>
+        </Reveal>
 
         {/* 2 Contact Cards: Email & Phone */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
 
           {/* Email Card */}
-          <div className="group relative flex items-center justify-between gap-4 p-5 sm:p-6 rounded-24 bg-surface border border-border hover:border-text/30 transition-colors">
+          <Reveal as="div" delay={0.06} y={24} className="group relative flex items-center justify-between gap-4 p-5 sm:p-6 rounded-24 bg-surface border border-border hover:border-text/30 transition-colors">
             <div className="flex items-center gap-4 min-w-0">
               <div className="w-12 h-12 rounded-12 bg-surface-2 border border-border/80 flex items-center justify-center shrink-0 text-muted group-hover:text-text transition-colors">
                 <LuMail className="text-20" aria-hidden="true" />
@@ -110,10 +111,10 @@ export function Contact() {
                 </>
               )}
             </button>
-          </div>
+          </Reveal>
 
           {/* Phone Card */}
-          <div className="group relative flex items-center justify-between gap-4 p-5 sm:p-6 rounded-24 bg-surface border border-border hover:border-text/30 transition-colors">
+          <Reveal as="div" delay={0.14} y={24} className="group relative flex items-center justify-between gap-4 p-5 sm:p-6 rounded-24 bg-surface border border-border hover:border-text/30 transition-colors">
             <div className="flex items-center gap-4 min-w-0">
               <div className="w-12 h-12 rounded-12 bg-surface-2 border border-border/80 flex items-center justify-center shrink-0 text-muted group-hover:text-text transition-colors">
                 <LuPhone className="text-20" aria-hidden="true" />
@@ -140,12 +141,12 @@ export function Contact() {
             >
               {t("contact.phoneAction")}
             </a>
-          </div>
+          </Reveal>
 
         </div>
 
         {/* Follow me on */}
-        <div className="mt-8 sm:mt-10 flex items-center gap-3.5 flex-wrap">
+        <Reveal as="div" delay={0.06} y={18} className="mt-8 sm:mt-10 flex items-center gap-3.5 flex-wrap">
           <span className="text-14 text-muted">
             {t("contact.followMe")}
           </span>
@@ -166,10 +167,10 @@ export function Contact() {
               );
             })}
           </div>
-        </div>
+        </Reveal>
 
         {/* Start Your Project CTA Button */}
-        <div className="mt-8 sm:mt-10">
+        <Reveal as="div" delay={0.1} y={16} className="mt-8 sm:mt-10">
           <a
             href={`mailto:${email}?subject=Project%20Inquiry%20-%20Abdul%20Muid`}
             className="inline-flex items-center justify-center gap-2.5 h-11 px-6 rounded-12 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
@@ -177,17 +178,17 @@ export function Contact() {
             <LuMail className="text-16" aria-hidden="true" />
             <span>{t("contact.startProject")}</span>
           </a>
-        </div>
+        </Reveal>
 
         {/* Bottom Bar: Copyright & Built with Next.js */}
-        <div className="mt-16 sm:mt-20 pt-8 border-t border-border/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-14 text-muted">
+        <Reveal as="div" delay={0.14} y={14} className="mt-16 sm:mt-20 pt-8 border-t border-border/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-14 text-muted">
           <p>{t("contact.copyright")}</p>
           <p className="inline-flex items-center gap-1.5">
             <span>{t("contact.builtWithPrefix")}</span>
             <HiHeart className="text-red-500 inline text-14 shrink-0" aria-label="love" />
             <span>{t("contact.builtWithSuffix")}</span>
           </p>
-        </div>
+        </Reveal>
 
       </div>
     </footer>

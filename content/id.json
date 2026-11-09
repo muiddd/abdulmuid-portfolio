@@ -67,43 +67,43 @@
   },
   "skills": {
     "title": "Keahlian & Layanan",
-    "subtitle": "[PLACEHOLDER] Disiplin yang saya kuasai untuk menciptakan produk digital yang berdampak"
+    "subtitle": "Disiplin yang saya kuasai untuk menciptakan produk digital yang berdampak"
   },
   "process": {
     "label": "03 · Proses Kerja",
     "titlePart1": "Alur Kerja &",
     "titlePart2": "Pendekatan Teknis",
-    "subtitle": "[PLACEHOLDER] Bagaimana saya mengolah ide dari tahap pemahaman kebutuhan hingga eksekusi kode yang rapi dan teruji.",
+    "subtitle": "Bagaimana saya mengolah ide dari tahap pemahaman kebutuhan hingga eksekusi kode yang rapi dan teruji.",
     "steps": [
       {
         "number": "01",
         "title": "Discovery",
-        "description": "[PLACEHOLDER] Memahami kebutuhan masalah, mempelajari perilaku pengguna, dan menentukan batasan teknis awal sebelum menulis kode."
+        "description": "Memahami kebutuhan masalah, mempelajari perilaku pengguna, dan menentukan batasan teknis awal sebelum menulis kode."
       },
       {
         "number": "02",
         "title": "Strategy",
-        "description": "[PLACEHOLDER] Memetakan arsitektur informasi, alur interaksi kunci, dan struktur basis data yang efisien."
+        "description": "Memetakan arsitektur informasi, alur interaksi kunci, dan struktur basis data yang efisien."
       },
       {
         "number": "03",
         "title": "Direction",
-        "description": "[PLACEHOLDER] Menyusun moodboard, wireframe antarmuka, dan eksplorasi visual untuk menetapkan arah estetika yang tepat."
+        "description": "Menyusun moodboard, wireframe antarmuka, dan eksplorasi visual untuk menetapkan arah estetika yang tepat."
       },
       {
         "number": "04",
         "title": "Design",
-        "description": "[PLACEHOLDER] Merancang antarmuka high-fidelity di Figma, membangun komponen sistem desain, dan menguji prototipe interaktif."
+        "description": "Merancang antarmuka high-fidelity di Figma, membangun komponen sistem desain, dan menguji prototipe interaktif."
       },
       {
         "number": "05",
         "title": "Development",
-        "description": "[PLACEHOLDER] Mengimplementasikan frontend modern dan backend terstruktur dengan kode bersih, reusable, dan performan."
+        "description": "Mengimplementasikan frontend modern dan backend terstruktur dengan kode bersih, reusable, dan performan."
       },
       {
         "number": "06",
         "title": "Delivery",
-        "description": "[PLACEHOLDER] Melakukan pengujian lintas peramban, optimasi SEO dan aksesibilitas, serta deployment ke server produksi."
+        "description": "Melakukan pengujian lintas peramban, optimasi SEO dan aksesibilitas, serta deployment ke server produksi."
       }
     ]
   },
@@ -149,6 +149,7 @@
     "headingMuted": "antarmuka intuitif.",
     "bioParagraph1": "Halo, saya Abdul Muid, mahasiswa Teknik Informatika di Politeknik Negeri Malang. Fokus saya ada di desain antarmuka, dan saya senang membawanya sampai jadi aplikasi web yang berjalan, dari Figma sampai kode.",
     "bioParagraph2": "Bagi saya, produk yang bagus lahir dari komunikasi yang jelas. Saya terbiasa mendengarkan kebutuhan, menjelaskan ide dengan sederhana, dan menjembatani desainer, developer, serta tim non-teknis supaya semua bergerak ke arah yang sama.",
+    "bioParagraph3": "Dalam setiap proyek yang saya kerjakan, saya selalu mengawali dengan pertanyaan: 'Apakah solusi ini menyederhanakan masalah bagi pengguna?' Fondasi arsitektur kode yang teruji dan estetika visual yang konsisten adalah dua pilar yang selalu saya pegang.",
     "experienceLink": "Lihat pengalaman saya",
     "facts": {
       "educationLabel": "Pendidikan",
@@ -195,7 +196,7 @@
     "copyEmail": "Salin Email",
     "copiedEmail": "Tersalin!",
     "phoneLabel": "Telepon",
-    "phoneNumber": "+62 857 3001 3648",
+    "phoneNumber": "+62 821 3901 8005",
     "phoneAction": "WhatsApp",
     "followMe": "Ikuti saya di",
     "startProject": "Mulai Proyek",
@@ -224,6 +225,11 @@
     "category": "Kategori",
     "period": "Periode",
     "status": "Status"
+  },
+  "preloader": {
+    "label": "Memuat portofolio",
+    "loading": "Memuat",
+    "tag": "Portofolio"
   },
   "cursor": {
     "label": "Anda"

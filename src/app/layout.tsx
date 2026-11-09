@@ -4,10 +4,12 @@ import "@/styles/tokens.css";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { EntranceProvider } from "@/context/EntranceContext";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CustomCursor } from "@/components/common/CustomCursor";
 import { InteractiveBackground } from "@/components/common/InteractiveBackground";
+import { Preloader } from "@/components/common/Preloader";
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -68,6 +70,19 @@ const themeScript = `
   })();
 `;
 
+// Marks returning visitors before first paint so the preloader never flashes
+// in for them. In development it always plays, which makes it easy to iterate on.
+const preloaderScript = `
+  (function() {
+    try {
+      var alwaysShow = ${process.env.NODE_ENV !== "production"};
+      if (!alwaysShow && sessionStorage.getItem('abdulmuid_preloader_seen')) {
+        document.documentElement.classList.add('preloader-skip');
+      }
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -81,17 +96,24 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: preloaderScript }} />
+        <noscript>
+          <style>{`.preloader{display:none!important}[data-reveal]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+        </noscript>
       </head>
       <body className="antialiased min-h-screen flex flex-col selection:bg-text selection:text-bg bg-bg text-text">
         <InteractiveBackground />
         <ThemeProvider>
           <LanguageProvider>
-            <Navbar />
-            <div className="flex-1 w-full">
-              {children}
-            </div>
-            <Footer />
-            <CustomCursor />
+            <EntranceProvider>
+              <Preloader />
+              <Navbar />
+              <div className="flex-1 w-full">
+                {children}
+              </div>
+              <Footer />
+              <CustomCursor />
+            </EntranceProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

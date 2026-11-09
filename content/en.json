@@ -55,7 +55,7 @@
     "title": "Selected Projects",
     "titlePart1": "Selected",
     "titlePart2": "Projects & Work",
-    "subtitle": "[PLACEHOLDER] Exploring interface solutions and fullstack development from concept to code.",
+    "subtitle": "Exploring interface solutions and fullstack development from concept to code.",
     "viewAsCanvas": "Canvas View",
     "viewAsList": "List View",
     "dragInstruction": "Drag to explore",
@@ -67,43 +67,43 @@
   },
   "skills": {
     "title": "Skills & Services",
-    "subtitle": "[PLACEHOLDER] Disciplines I master to deliver impactful digital products"
+    "subtitle": "Disciplines I master to deliver impactful digital products"
   },
   "process": {
     "label": "03 · Process",
     "titlePart1": "Workflow &",
     "titlePart2": "Working Approach",
-    "subtitle": "[PLACEHOLDER] How I navigate projects from understanding problem requirements to delivering robust, maintainable code.",
+    "subtitle": "How I navigate projects from understanding problem requirements to delivering robust, maintainable code.",
     "steps": [
       {
         "number": "01",
         "title": "Discovery",
-        "description": "[PLACEHOLDER] Understanding user needs, core challenges, and technical constraints before writing code."
+        "description": "Understanding user needs, core challenges, and technical constraints before writing code."
       },
       {
         "number": "02",
         "title": "Strategy",
-        "description": "[PLACEHOLDER] Mapping information architecture, user flows, and structured database schema design."
+        "description": "Mapping information architecture, user flows, and structured database schema design."
       },
       {
         "number": "03",
         "title": "Direction",
-        "description": "[PLACEHOLDER] Curating moodboards, visual art direction, and low-fi wireframes."
+        "description": "Curating moodboards, visual art direction, and low-fi wireframes."
       },
       {
         "number": "04",
         "title": "Design",
-        "description": "[PLACEHOLDER] High-fidelity interface design, design systems, and interactive prototypes."
+        "description": "High-fidelity interface design, design systems, and interactive prototypes."
       },
       {
         "number": "05",
         "title": "Development",
-        "description": "[PLACEHOLDER] Frontend and backend implementation with clean, structured, performant code."
+        "description": "Frontend and backend implementation with clean, structured, performant code."
       },
       {
         "number": "06",
         "title": "Delivery",
-        "description": "[PLACEHOLDER] Rigorous testing, performance tuning, documentation, and launch."
+        "description": "Rigorous testing, performance tuning, documentation, and launch."
       }
     ]
   },
@@ -149,6 +149,7 @@
     "headingMuted": "intuitive interfaces.",
     "bioParagraph1": "Hi, I'm Abdul Muid, an Informatics Engineering student at Politeknik Negeri Malang. My strength is interface design, and I enjoy taking a design all the way to a working web app, from Figma to code.",
     "bioParagraph2": "To me, good products come from clear communication. I listen closely to what people need, explain ideas simply, and bridge designers, developers, and non-technical teammates so everyone moves in the same direction.",
+    "bioParagraph3": "In every project I build, I always begin with the fundamental question: 'Does this genuinely solve a user problem simply?' Robust code architecture and cohesive interface aesthetics are the two core pillars I adhere to.",
     "experienceLink": "See my experience",
     "facts": {
       "educationLabel": "Education",
@@ -188,31 +189,31 @@
     "label": "06 · FAQ",
     "titlePart1": "Frequently Asked",
     "titlePart2": "Questions",
-    "subtitle": "[PLACEHOLDER] Key details regarding internship availability, collaboration style, and tech preferences.",
+    "subtitle": "Key details regarding internship availability, collaboration style, and tech preferences.",
     "items": [
       {
         "question": "What is your primary tech stack?",
-        "answer": "[PLACEHOLDER] On the frontend, I focus on React, Next.js, TypeScript, and Tailwind CSS. For backend and databases, I work with Node.js/Express, PostgreSQL, and MySQL. For product research and interface design, Figma is my go-to tool."
+        "answer": "On the frontend, I focus on React, Next.js, TypeScript, and Tailwind CSS. For backend and databases, I work with Node.js/Express, PostgreSQL, and MySQL. For product research and interface design, Figma is my go-to tool."
       },
       {
         "question": "Are you available for on-site internships in Malang or remote?",
-        "answer": "[PLACEHOLDER] Yes, I am based in Malang and open to on-site internships locally, as well as hybrid or full-remote roles for companies located elsewhere."
+        "answer": "Yes, I am based in Malang and open to on-site internships locally, as well as hybrid or full-remote roles for companies located elsewhere."
       },
       {
         "question": "How do you approach team collaboration?",
-        "answer": "[PLACEHOLDER] I value clear, proactive communication. I am accustomed to Git workflows (branching, pull requests, code reviews), task management tools, and writing concise technical documentation."
+        "answer": "I value clear, proactive communication. I am accustomed to Git workflows (branching, pull requests, code reviews), task management tools, and writing concise technical documentation."
       },
       {
         "question": "What is your workflow when converting designs into code?",
-        "answer": "[PLACEHOLDER] I deconstruct Figma designs into systematic tokens (color, typography, spacing), construct modular components, and build them using Tailwind CSS and Next.js with pixel-perfect precision and responsiveness."
+        "answer": "I deconstruct Figma designs into systematic tokens (color, typography, spacing), construct modular components, and build them using Tailwind CSS and Next.js with pixel-perfect precision and responsiveness."
       },
       {
         "question": "What is the best way to contact you?",
-        "answer": "[PLACEHOLDER] You can reach me through the contact form below, via direct email, or on LinkedIn. I typically respond within 24 hours on business days."
+        "answer": "You can reach me through the contact form below, via direct email, or on LinkedIn. I typically respond within 24 hours on business days."
       },
       {
         "question": "What types of tasks or projects are you most eager to tackle?",
-        "answer": "[PLACEHOLDER] I thrive when working on interactive frontend systems, slicing complex UI/UX designs, integrating APIs, and building end-to-end features for MVP-stage web applications."
+        "answer": "I thrive when working on interactive frontend systems, slicing complex UI/UX designs, integrating APIs, and building end-to-end features for MVP-stage web applications."
       }
     ]
   },
@@ -227,7 +228,7 @@
     "copyEmail": "Click to copy",
     "copiedEmail": "Copied!",
     "phoneLabel": "Phone",
-    "phoneNumber": "+62 857 3001 3648",
+    "phoneNumber": "+62 821 3901 8005",
     "phoneAction": "WhatsApp",
     "followMe": "Follow me on",
     "startProject": "Start Your Project",
@@ -256,6 +257,11 @@
     "category": "Category",
     "period": "Period",
     "status": "Status"
+  },
+  "preloader": {
+    "label": "Loading portfolio",
+    "loading": "Loading",
+    "tag": "Portfolio"
   },
   "cursor": {
     "label": "You"

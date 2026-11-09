@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
+import { Reveal } from "@/components/common/Reveal";
 import { projects } from "../../../content/projects";
 
 export function SelectedWork() {
@@ -16,7 +17,7 @@ export function SelectedWork() {
     <section id="projects" className="relative w-full py-16 md:py-24 border-t border-border scroll-mt-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8">
+        <Reveal as="div" y={22} className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8">
           <div className="space-y-2.5">
             <h2 className="font-serif text-28 sm:text-40 tracking-[-0.01em] text-text leading-[1.12]">
               {t("projects.titlePart1")}{" "}
@@ -26,13 +27,16 @@ export function SelectedWork() {
               {t("projects.subtitle")}
             </p>
           </div>
-        </div>
+        </Reveal>
 
         {/* Projects Grid: 2 columns matching the current 2 projects */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {projects.map((project) => (
-            <div
+          {projects.map((project, idx) => (
+            <Reveal
               key={project.slug}
+              as="div"
+              delay={idx * 0.1}
+              y={28}
               role="button"
               tabIndex={0}
               onClick={() => router.push(`/projects/${project.slug}`)}
@@ -90,12 +94,12 @@ export function SelectedWork() {
                   />
                 </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
 
         {/* Bottom CTA to View All Projects */}
-        <div className="pt-10 sm:pt-14 flex justify-center">
+        <Reveal as="div" delay={0.1} y={18} className="pt-10 sm:pt-14 flex justify-center">
           <Link
             href="/projects"
             className="group inline-flex items-center justify-center gap-2 h-11 px-6 rounded-12 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
@@ -106,7 +110,7 @@ export function SelectedWork() {
               className="text-16 transition-transform duration-200 group-hover:translate-x-0.5"
             />
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

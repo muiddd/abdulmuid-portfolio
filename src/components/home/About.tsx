@@ -4,32 +4,38 @@ import React from "react";
 import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
+import { Reveal } from "@/components/common/Reveal";
 import { skillsData } from "../../../content/skills";
 
 export function About() {
   const { t } = useLanguage();
 
-  // Only take skills that have an icon for the marquee, duplicate for infinite loop
+  // Only take skills that have an icon for the marquee. They are split into
+  // two rows, and each row is duplicated so the infinite loop is seamless.
   const iconSkills = skillsData.filter((skill) => skill.icon !== undefined);
-  const marqueeItems = [...iconSkills, ...iconSkills];
+  const half = Math.ceil(iconSkills.length / 2);
+  const marqueeRows = [
+    iconSkills.slice(0, half),
+    iconSkills.slice(half),
+  ].map((row) => [...row, ...row]);
 
   return (
     <section id="about" className="relative w-full py-16 md:py-24 lg:py-28 border-t border-border/60 scroll-mt-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header (Sevora Style: Mono label above + Large Serif Heading) */}
-        <div className="max-w-3xl mb-12 sm:mb-16">
+        <Reveal as="div" y={22} className="max-w-3xl mb-12 sm:mb-16">
           <h2 className="font-serif text-28 sm:text-40 leading-[1.12] text-text tracking-[-0.01em]">
             {t("about.headingMain")}{" "}
             <span className="text-muted italic">{t("about.headingMuted")}</span>
           </h2>
-        </div>
+        </Reveal>
 
         {/* Upper Content: 2-Column Grid (Bio on Left, 3 Facts & CTAs on Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Left Column (lg:col-span-7): Bio Paragraphs & Experience Link */}
-          <div className="lg:col-span-7 flex flex-col space-y-4">
+          <Reveal as="div" delay={0.08} y={24} className="lg:col-span-7 flex flex-col space-y-4">
             <p className="font-sans text-16 leading-relaxed text-text">
               {t("about.bioParagraph1")}
             </p>
@@ -48,10 +54,10 @@ export function About() {
                 />
               </Link>
             </div>
-          </div>
+          </Reveal>
 
           {/* Right Column (lg:col-span-5): 3 Quick Facts & Action Buttons */}
-          <div className="lg:col-span-5 bg-surface rounded-24 border border-border p-5 sm:p-6 shadow-none flex flex-col space-y-5">
+          <Reveal as="div" delay={0.16} y={24} className="lg:col-span-5 bg-surface rounded-24 border border-border p-5 sm:p-6 shadow-none flex flex-col space-y-5">
             
             {/* 3 Quick Facts (Polinema, Malang, Fullstack & UI/UX) */}
             <dl className="space-y-3.5 divide-y divide-border/80">
@@ -91,8 +97,9 @@ export function About() {
             {/* CTAs: Primary (Download CV) + Secondary (Read More) */}
             <div className="flex flex-wrap items-center gap-2.5 pt-2 border-t border-border">
               <a
-                href="/cv.pdf"
-                download
+                href="/Abdul-Muid-CV-ATS.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center h-10 px-5 rounded-12 bg-text text-bg font-sans text-14 font-medium hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
               >
                 {t("about.ctaDownloadCv")}
@@ -106,12 +113,12 @@ export function About() {
               </Link>
             </div>
 
-          </div>
+          </Reveal>
 
         </div>
 
         {/* Lower Content: Animated Moving Skills Marquee Underneath the Text */}
-        <div className="mt-14 sm:mt-18 pt-8 sm:pt-10 border-t border-border/70">
+        <Reveal as="div" delay={0.1} y={22} className="mt-14 sm:mt-18 pt-8 sm:pt-10 border-t border-border/70">
           
           {/* Marquee Title */}
           <div className="flex items-center justify-between mb-4 select-none">
@@ -130,34 +137,46 @@ export function About() {
             </Link>
           </div>
 
-          {/* Marquee Viewport with Edge Gradient Fade */}
-          <div className="relative w-full overflow-hidden mask-marquee py-2">
-            <div className="animate-marquee flex items-center gap-3">
-              {marqueeItems.map((skill, idx) => {
-                const IconComponent = skill.icon!;
+          {/* Marquee Viewport with Edge Gradient Fade: two opposing rows */}
+          <div className="relative w-full overflow-hidden mask-marquee py-2 space-y-3">
+            {marqueeRows.map((row, rowIdx) => {
+              const uniqueCount = row.length / 2;
 
-                return (
-                  <div
-                    key={`${skill.id}-${idx}`}
-                    tabIndex={0}
-                    role="img"
-                    aria-label={skill.name}
-                    className="group inline-flex items-center gap-2.5 px-4 py-2 bg-surface rounded-12 border border-border/90 text-muted hover:text-text hover:border-text/30 transition-all duration-200 cursor-pointer select-none shrink-0 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                  >
-                    {/* Monochrome Icon */}
-                    <IconComponent className="w-5 h-5 text-muted group-hover:text-text transition-colors duration-200" />
-                    
-                    {/* Skill Name */}
-                    <span className="font-sans text-14 font-medium text-text whitespace-nowrap">
-                      {skill.name}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+              return (
+                <div
+                  key={rowIdx}
+                  className={`${
+                    rowIdx === 0 ? "animate-marquee" : "animate-marquee-reverse"
+                  } items-center gap-3`}
+                >
+                  {row.map((skill, idx) => {
+                    const IconComponent = skill.icon!;
+
+                    return (
+                      <div
+                        key={`${skill.id}-${idx}`}
+                        data-marquee-dup={idx >= uniqueCount ? "true" : undefined}
+                        tabIndex={0}
+                        role="img"
+                        aria-label={skill.name}
+                        className="group inline-flex items-center gap-2.5 px-4 py-2 bg-surface rounded-12 border border-border/90 text-muted hover:text-text hover:border-text/30 transition-all duration-200 cursor-pointer select-none shrink-0 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                      >
+                        {/* Monochrome Icon */}
+                        <IconComponent className="w-5 h-5 text-muted group-hover:text-text transition-colors duration-200" />
+
+                        {/* Skill Name */}
+                        <span className="font-sans text-14 font-medium text-text whitespace-nowrap">
+                          {skill.name}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
 
-        </div>
+        </Reveal>
 
       </div>
     </section>

@@ -14,7 +14,7 @@ interface PlaceholderImageProps {
 export function PlaceholderImage({
   src,
   alt,
-  label = "[PLACEHOLDER] Visual Asset",
+  label = "Visual Asset",
   category,
   aspectRatio = "video",
   className = "",

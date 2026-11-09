@@ -11,10 +11,13 @@ import {
 } from "framer-motion";
 import { LuArrowRight, LuArrowUpRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
+import { useEntrance } from "@/context/EntranceContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
+import { Reveal } from "@/components/common/Reveal";
 
 export function Hero() {
   const { t } = useLanguage();
+  const { ready } = useEntrance();
   const shouldReduceMotion = useReducedMotion();
   const profilePhotoSrc = "/images/profile.png";
 
@@ -128,6 +131,7 @@ export function Hero() {
           {/* Left Column (lg:col-span-6): Photo Frame with Canvas Outlines & Floating Name Card */}
           <div className="lg:col-span-6 relative w-full max-w-sm sm:max-w-md mx-auto lg:max-w-[430px]">
             {/* Portrait Frame Container */}
+            <Reveal y={34} blur={8} duration={0.85} className="w-full">
             <motion.div style={{ x: photoX, y: photoY }} className="relative pt-6 group/photo">
               {/* Attached Purple Tag on top-left of photo */}
               <div className="absolute top-0 left-0 bg-accent text-white font-mono text-12 font-semibold px-2 py-0.5 select-none z-20">
@@ -155,8 +159,8 @@ export function Hero() {
 
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.15 }}
+                animate={{ opacity: ready ? 1 : 0 }}
+                transition={{ duration: 0.4, delay: 0.35 }}
                 style={{ x: nameX, y: nameY }}
                 className="group/name relative mt-6 lg:mt-0 lg:absolute lg:top-[16%] lg:left-[90%] z-30 inline-block"
               >
@@ -179,18 +183,19 @@ export function Hero() {
                 </div>
               </motion.div>
             </motion.div>
+            </Reveal>
           </div>
 
           {/* Right Column (lg:col-span-6): Position Statement, Status & CTAs */}
           {/* Diposisikan di paruh bawah (lg:pt-60 xl:pt-64) agar tidak sejajar/bertabrakan dengan kartu nama */}
           <div className="lg:col-span-6 flex flex-col justify-end pt-8 lg:pt-60 xl:pt-64 lg:pl-12 space-y-6">
             {/* Bio / Position Statement */}
-            <p className="text-16 text-text leading-relaxed max-w-md">
+            <Reveal as="p" delay={0.3} y={18} className="text-16 text-text leading-relaxed max-w-md">
               {t("hero.statement")}
-            </p>
+            </Reveal>
 
             {/* Status with purple dot (Ilse Moreno clean style) */}
-            <div className="flex items-center gap-2.5 text-14 text-text">
+            <Reveal as="div" delay={0.4} y={14} className="flex items-center gap-2.5 text-14 text-text">
               <span
                 className="relative flex h-2 w-2 shrink-0"
                 style={{ width: "8px", height: "8px" }}
@@ -199,10 +204,10 @@ export function Hero() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
               <span>{t("hero.badge")}</span>
-            </div>
+            </Reveal>
 
             {/* Two CTA Buttons: Say hello (Black) & See the work (Light) */}
-            <div className="flex flex-wrap items-center gap-3 pt-1">
+            <Reveal as="div" delay={0.5} y={14} className="flex flex-wrap items-center gap-3 pt-1">
               <Link
                 href="/contact"
                 className="group/cta inline-flex items-center justify-center h-10 px-5 rounded-8 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
@@ -224,7 +229,7 @@ export function Hero() {
                   className="ml-1.5 text-16 transition-transform duration-300 group-hover/cta:translate-x-0.5"
                 />
               </Link>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

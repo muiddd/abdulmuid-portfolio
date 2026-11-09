@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
+import { Reveal } from "@/components/common/Reveal";
 import { skillsData } from "../../../content/skills";
 
 export default function AboutPage() {
@@ -15,7 +16,7 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-18">
         
         {/* Header */}
-        <header className="space-y-4">
+        <Reveal as="header" y={24} className="space-y-4">
           <h1 className="font-serif text-40 sm:text-64 text-text leading-[1.05] tracking-tight">
             Abdul Muid —{" "}
             <span className="text-muted italic">
@@ -27,11 +28,11 @@ export default function AboutPage() {
               ? "Mahasiswa Teknik Informatika di Politeknik Negeri Malang yang menggabungkan presisi rekayasa kode dengan kepekaan desain antarmuka."
               : "Informatics Engineering student at Politeknik Negeri Malang bridging code engineering precision with thoughtful user interface design."}
           </p>
-        </header>
+        </Reveal>
 
         {/* Portrait & Core Philosophy Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          <div className="md:col-span-5 overflow-hidden rounded-24 border border-border bg-surface">
+          <Reveal as="div" delay={0.08} y={26} className="md:col-span-5 overflow-hidden rounded-24 border border-border bg-surface">
             <PlaceholderImage
               src="/images/profile.png"
               alt="Abdul Muid Portrait"
@@ -40,9 +41,9 @@ export default function AboutPage() {
               label="Abdul Muid"
               className="w-full"
             />
-          </div>
+          </Reveal>
 
-          <div className="md:col-span-7 space-y-5 text-16 text-muted leading-relaxed">
+          <Reveal as="div" delay={0.16} y={26} className="md:col-span-7 space-y-5 text-16 text-muted leading-relaxed">
             <h2 className="font-serif text-28 leading-[1.12] tracking-[-0.01em] text-text">
               {lang === "id" ? "Filosofi & Cara Kerja" : "Philosophy & Work Approach"}
             </h2>
@@ -53,15 +54,13 @@ export default function AboutPage() {
               {t("about.bioParagraph2")}
             </p>
             <p>
-              {lang === "id"
-                ? "[PLACEHOLDER] Dalam setiap proyek yang saya kerjakan, saya selalu mengawali dengan pertanyaan: 'Apakah solusi ini menyederhanakan masalah bagi pengguna?' Fondasi arsitektur kode yang teruji dan estetika visual yang konsisten adalah dua pilar yang selalu saya pegang."
-                : "[PLACEHOLDER] In every project I build, I always begin with the fundamental question: 'Does this genuinely solve a user problem simply?' Robust code architecture and cohesive interface aesthetics are the two core pillars I adhere to."}
+              {t("about.bioParagraph3")}
             </p>
-          </div>
+          </Reveal>
         </div>
 
         {/* Education & Academic Facts */}
-        <section className="bg-surface rounded-24 border border-border p-6 sm:p-8 space-y-6">
+        <Reveal as="section" y={24} className="bg-surface rounded-24 border border-border p-6 sm:p-8 space-y-6">
           <span className="font-mono text-12 text-muted uppercase tracking-wider block">
             {lang === "id" ? "Latar Belakang Akademis & Fokus" : "Academic Background & Focus"}
           </span>
@@ -97,10 +96,10 @@ export default function AboutPage() {
               <p className="text-14 text-muted">Internship Ready</p>
             </div>
           </div>
-        </section>
+        </Reveal>
 
         {/* Featured Skills Summary Card */}
-        <section className="space-y-6">
+        <Reveal as="section" y={24} className="space-y-6">
           <div className="space-y-2">
             <span className="font-mono text-12 text-muted uppercase tracking-wider block">
               Tech Stack & Toolkit
@@ -147,14 +146,15 @@ export default function AboutPage() {
               />
             </Link>
           </div>
-        </section>
+        </Reveal>
 
         {/* Actions (Download CV & Contact) */}
-        <section className="pt-8 border-t border-border flex flex-wrap items-center justify-between gap-4">
+        <Reveal as="section" y={20} className="pt-8 border-t border-border flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3">
             <a
-              href="/cv.pdf"
-              download
+              href="/Abdul-Muid-CV-ATS.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center h-11 px-6 rounded-12 bg-text text-bg text-14 font-medium hover:opacity-90 transition-opacity shadow-sm"
             >
               {t("about.ctaDownloadCv")}
@@ -177,7 +177,7 @@ export default function AboutPage() {
               className="ml-1.5 text-14 transition-transform duration-200 group-hover:translate-x-0.5"
             />
           </Link>
-        </section>
+        </Reveal>
 
       </div>
     </main>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LuArrowLeft, LuArrowRight, LuArrowUpRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
+import { Reveal } from "@/components/common/Reveal";
 import { Project, projects } from "../../../../content/projects";
 
 export function ProjectDetailClient({ project }: { project: Project }) {
@@ -44,7 +45,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
         
         {/* Back Link / Breadcrumb */}
-        <div>
+        <Reveal as="div" y={16}>
           <Link
             href="/projects"
             className="inline-flex items-center gap-1.5 font-mono text-14 text-muted hover:text-text transition-colors select-none"
@@ -52,10 +53,10 @@ export function ProjectDetailClient({ project }: { project: Project }) {
             <LuArrowLeft aria-hidden="true" className="text-16" />
             <span>{lang === "id" ? "Kembali ke Semua Proyek" : "Back to All Projects"}</span>
           </Link>
-        </div>
+        </Reveal>
 
         {/* Project Header */}
-        <header className="space-y-6">
+        <Reveal as="header" delay={0.06} y={24} className="space-y-6">
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-3 py-1 rounded-8 bg-surface border border-border text-12 font-mono text-text">
               {project.category[lang]}
@@ -169,10 +170,10 @@ export function ProjectDetailClient({ project }: { project: Project }) {
               </div>
             </div>
           </div>
-        </header>
+        </Reveal>
 
         {/* Hero Cover Image */}
-        <div className="overflow-hidden rounded-24 border border-border bg-surface shadow-sm">
+        <Reveal as="div" y={26} className="overflow-hidden rounded-24 border border-border bg-surface shadow-sm">
           <PlaceholderImage
             src={project.cover}
             alt={project.title[lang]}
@@ -181,24 +182,30 @@ export function ProjectDetailClient({ project }: { project: Project }) {
             label={project.title[lang]}
             className="w-full"
           />
-        </div>
+        </Reveal>
 
         {/* Case Study Sections (Problem, Process, Results) */}
         <div className="space-y-10 sm:space-y-12">
           {project.sections.map((section, idx) => (
-            <section key={idx} className="bg-surface rounded-24 border border-border p-7 sm:p-9 space-y-3">
+            <Reveal
+              key={idx}
+              as="section"
+              delay={idx * 0.08}
+              y={24}
+              className="bg-surface rounded-24 border border-border p-7 sm:p-9 space-y-3"
+            >
               <h2 className="font-serif text-28 leading-[1.12] tracking-[-0.01em] text-text">
                 {section.title[lang]}
               </h2>
               <p className="font-sans text-16 text-muted leading-relaxed pt-1">
                 {section.content[lang]}
               </p>
-            </section>
+            </Reveal>
           ))}
         </div>
 
         {/* Image Gallery */}
-        <div className="space-y-6">
+        <Reveal as="div" y={22} className="space-y-6">
           <h2 className="font-serif text-28 leading-[1.12] tracking-[-0.01em] text-text">
             {lang === "id" ? "Galeri Desain & Antarmuka" : "Design & Interface Gallery"}
           </h2>
@@ -220,10 +227,10 @@ export function ProjectDetailClient({ project }: { project: Project }) {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
 
         {/* Previous / Next Project Navigation Footer */}
-        <footer className="pt-10 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+        <Reveal as="footer" y={20} className="pt-10 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link
             href={`/projects/${prevProject.slug}`}
             className="group flex flex-col items-start p-4 rounded-16 bg-surface border border-border w-full sm:w-[48%] hover:border-text/30 transition-colors"
@@ -249,7 +256,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
               {nextProject.title[lang]}
             </span>
           </Link>
-        </footer>
+        </Reveal>
 
       </div>
     </article>

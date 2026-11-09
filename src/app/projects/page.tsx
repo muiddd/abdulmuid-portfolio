@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { PlaceholderImage } from "@/components/common/PlaceholderImage";
+import { Reveal } from "@/components/common/Reveal";
 import { projects } from "../../../content/projects";
 
 export default function ProjectsPage() {
@@ -29,7 +30,7 @@ export default function ProjectsPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+        <Reveal as="div" y={24} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div className="max-w-2xl">
             <h1 className="font-serif text-40 sm:text-64 text-text leading-[1.05] tracking-tight">
               {lang === "id" ? "Semua Proyek &" : "All Projects &"}{" "}
@@ -41,7 +42,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 self-start md:self-end">
+          <Reveal as="div" delay={0.12} y={16} className="flex flex-wrap items-center gap-2 self-start md:self-end">
             {categories.map((cat) => {
               const isActive = activeCategory === cat.id;
 
@@ -60,16 +61,16 @@ export default function ProjectsPage() {
                 </button>
               );
             })}
-          </div>
-        </div>
+          </Reveal>
+        </Reveal>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, idx) => (
+            <Reveal key={project.slug} y={28} delay={idx * 0.1} className="h-full">
             <Link
-              key={project.slug}
               href={`/projects/${project.slug}`}
-              className="group bg-surface rounded-24 border border-border p-5 sm:p-6 shadow-none hover:border-text/30 transition-all duration-200 flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
+              className="group h-full bg-surface rounded-24 border border-border p-5 sm:p-6 shadow-none hover:border-text/30 transition-all duration-200 flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
             >
               <div className="space-y-4">
                 {/* Image Cover */}
@@ -126,6 +127,7 @@ export default function ProjectsPage() {
                 />
               </div>
             </Link>
+            </Reveal>
           ))}
         </div>
 

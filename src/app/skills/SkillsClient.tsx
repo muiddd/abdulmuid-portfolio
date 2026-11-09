@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
+import { Reveal } from "@/components/common/Reveal";
 import {
   skillsData,
   skillCategories,
@@ -92,7 +93,7 @@ export function SkillsClient() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Header (Single H1, Mono label, Serif heading with muted accent) */}
-        <div className="max-w-3xl mb-10 sm:mb-14">
+        <Reveal as="div" y={24} className="max-w-3xl mb-10 sm:mb-14">
           <span className="font-mono text-12 text-muted uppercase tracking-wider block mb-2 select-none">
             {t("skills.label")}
           </span>
@@ -103,11 +104,11 @@ export function SkillsClient() {
           <p className="mt-4 text-16 text-muted leading-relaxed">
             {t("skills.subtitle")}
           </p>
-        </div>
+        </Reveal>
 
         {/* Mobile Sub-Navbar: Sticky Horizontal Bar with hidden scrollbar */}
         <div className="lg:hidden sticky top-16 z-30 -mx-4 sm:-mx-6 px-4 sm:px-6 py-2.5 bg-bg/90 backdrop-blur-md border-y border-border/80 mb-8">
-          <nav
+          <Reveal as="nav" y={0} delay={0.1}
             aria-label={t("skills.subnavAria")}
             className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5"
           >
@@ -136,7 +137,7 @@ export function SkillsClient() {
                 </button>
               );
             })}
-          </nav>
+          </Reveal>
         </div>
 
         {/* Two Column Layout on Desktop (Left sticky sub-nav, Right content sections) */}
@@ -144,7 +145,7 @@ export function SkillsClient() {
           
           {/* Left Column (lg:col-span-4): Sticky Vertical Sub-navbar */}
           <aside className="hidden lg:block lg:col-span-4 sticky top-28">
-            <div className="bg-surface rounded-24 border border-border p-3.5 shadow-none">
+            <Reveal as="div" y={0} delay={0.08} className="bg-surface rounded-24 border border-border p-3.5 shadow-none">
               <nav aria-label={t("skills.subnavAria")} className="flex flex-col space-y-1">
                 {categorySections.map((cat) => {
                   const isActive = activeCategory === cat.id;
@@ -177,19 +178,19 @@ export function SkillsClient() {
                   );
                 })}
               </nav>
-            </div>
+            </Reveal>
           </aside>
 
           {/* Right Column (lg:col-span-8): All Categories as Sequential Sections */}
           <div className="lg:col-span-8 space-y-12 sm:space-y-16">
             {categorySections.map((cat) => (
-              <motion.section
+              <Reveal
                 key={cat.id}
+                as="section"
                 id={cat.id}
-                initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+                y={22}
+                duration={0.45}
+                margin="-40px"
                 className="scroll-mt-28 md:scroll-mt-32 space-y-5"
               >
                 {/* Section Header: Label Mono + Thin Line + 2-digit Count */}
@@ -249,11 +250,11 @@ export function SkillsClient() {
                     })}
                   </div>
                 )}
-              </motion.section>
+              </Reveal>
             ))}
 
             {/* Bottom Navigation CTA */}
-            <div className="pt-8 border-t border-border flex flex-wrap items-center justify-between gap-4">
+            <Reveal as="div" y={18} className="pt-8 border-t border-border flex flex-wrap items-center justify-between gap-4">
               <Link
                 href="/about"
                 className="group inline-flex items-center justify-center gap-2 h-11 px-6 rounded-12 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text"
@@ -275,7 +276,7 @@ export function SkillsClient() {
                   className="text-16 transition-transform duration-200 group-hover:translate-x-0.5"
                 />
               </Link>
-            </div>
+            </Reveal>
 
           </div>
 

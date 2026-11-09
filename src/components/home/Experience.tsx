@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
+import { Reveal } from "@/components/common/Reveal";
 import { experiences, ExperienceItem } from "../../../content/experience";
 
 interface ExperienceProps {
@@ -19,7 +19,6 @@ export function Experience({
   showFilter = !limit,
 }: ExperienceProps) {
   const { lang, t } = useLanguage();
-  const shouldReduceMotion = useReducedMotion();
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
   const categories = [
@@ -61,7 +60,7 @@ export function Experience({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14">
+        <Reveal as="div" y={22} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14">
           <div className="max-w-2xl">
             <h2 className="font-serif text-28 sm:text-40 leading-[1.12] text-text tracking-[-0.01em]">
               {t("experience.titlePart1")}{" "}
@@ -74,7 +73,7 @@ export function Experience({
 
           {/* Category Filter Pills (Active when showFilter is true, e.g. on /experience) */}
           {showFilter && (
-            <div className="flex flex-wrap items-center gap-2 self-start md:self-end">
+            <Reveal as="div" delay={0.12} y={16} className="flex flex-wrap items-center gap-2 self-start md:self-end">
               {categories.map((cat) => {
                 const isActive = activeCategory === cat.id;
 
@@ -93,19 +92,19 @@ export function Experience({
                   </button>
                 );
               })}
-            </div>
+            </Reveal>
           )}
-        </div>
+        </Reveal>
 
         {/* Vertical Timeline (Left-aligned, full width to match section boundary) */}
         <div className="relative border-l border-border ml-3 sm:ml-4 pl-6 sm:pl-8 space-y-8 sm:space-y-10">
           {displayItems.map((item, idx) => (
-            <motion.div
+            <Reveal
               key={item.id}
-              initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.35, delay: idx * 0.08 }}
+              y={16}
+              duration={0.4}
+              delay={idx * 0.08}
+              margin="-50px"
               className="relative group"
             >
               {/* Timeline Node Dot */}
@@ -162,13 +161,13 @@ export function Experience({
                 )}
 
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 
         {/* View All Button */}
         {showViewAll && (
-          <div className="mt-10 sm:mt-12 ml-3 sm:ml-4 pl-6 sm:pl-8">
+          <Reveal as="div" delay={0.1} y={18} className="mt-10 sm:mt-12 ml-3 sm:ml-4 pl-6 sm:pl-8">
             <Link
               href="/experience"
               className="group inline-flex items-center justify-center gap-2 h-11 px-6 rounded-12 border border-border bg-surface-2 text-text text-14 font-medium hover:bg-surface transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-text shadow-sm"
@@ -179,7 +178,7 @@ export function Experience({
                 className="text-16 transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </Link>
-          </div>
+          </Reveal>
         )}
 
       </div>

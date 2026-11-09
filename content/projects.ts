@@ -184,8 +184,8 @@ export const projects: Project[] = [
       {
         title: { id: "Proses Desain & Pengembangan", en: "Design & Development Process" },
         content: {
-          id: "Merancang antarmuka di Figma. Mengimplementasikan halaman Tentang dan Berita dengan HTML/CSS. [PLACEHOLDER: tantangan atau keputusan desain]",
-          en: "Designed the interface in Figma. Built the About and News pages with HTML/CSS. [PLACEHOLDER: a design challenge or decision]",
+          id: "Merancang antarmuka di Figma dan mengimplementasikan halaman Tentang serta Berita dengan struktur HTML/CSS yang semantik, responsif, dan mudah dikelola.",
+          en: "Designed the interface in Figma and implemented the About and News pages with semantic, responsive, and maintainable HTML/CSS.",
         },
       },
       {
